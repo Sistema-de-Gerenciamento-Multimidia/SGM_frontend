@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { FaCog, FaUserCircle } from "react-icons/fa";
 
 export function DashboardPage() {
@@ -12,7 +13,9 @@ export function DashboardPage() {
         />
         <div className="flex items-center space-x-4">
           <FaCog className="text-gray-600 text-2xl cursor-pointer hover:text-fulvoushover" />
-          <FaUserCircle className="text-gray-600 text-2xl cursor-pointer hover:text-fulvoushover" />
+          <Link to="/perfil">
+            <FaUserCircle className="text-gray-600 text-2xl cursor-pointer hover:text-fulvoushover" />
+          </Link>
         </div>
       </header>
 

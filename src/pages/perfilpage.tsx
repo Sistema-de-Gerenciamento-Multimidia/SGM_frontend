@@ -1,7 +1,6 @@
-// src/pages/perfilpage.tsx
-
 import { useState } from 'react';
 import { FaCog, FaUserCircle } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import Perfil from "../../public/robot_perfil.png";
 import { Galeria } from '../components/perfil_galeria';
 import { Fotos } from '../components/perfil_fotos';
@@ -23,7 +22,9 @@ export function PerfilPage() {
         />
         <div className="flex items-center space-x-4">
           <FaCog className="text-gray-600 text-2xl cursor-pointer hover:text-fulvoushover" />
-          <FaUserCircle className="text-gray-600 text-2xl cursor-pointer hover:text-fulvoushover" />
+          <Link to="/perfil">
+            <FaUserCircle className="text-gray-600 text-2xl cursor-pointer hover:text-fulvoushover" />
+          </Link>
         </div>
       </header>
 
