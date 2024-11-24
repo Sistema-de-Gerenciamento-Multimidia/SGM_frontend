@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Link } from "react-router-dom"; // Use Link para navegação interna
 
 const createUserFormSchema = z.object({
   name: z
@@ -46,7 +47,7 @@ export function RegisterCard() {
 
   return (
     <>
-      <form className="flex flex-col w-full max-w-xs gap-3"  onSubmit={handleSubmit(createUser)}>
+      <form className="flex flex-col w-full max-w-xs gap-3" onSubmit={handleSubmit(createUser)}>
         <div className="flex flex-col">
           <label className="text-fulvouscolor font-semibold" htmlFor="fullname">
             Nome Completo
@@ -97,7 +98,7 @@ export function RegisterCard() {
             placeholder="Digite sua senha"
             {...register("password")}
           />
-           {errors.password && <span className="text-red-600 text-sm">{errors.password.message}</span>}
+          {errors.password && <span className="text-red-600 text-sm">{errors.password.message}</span>}
         </div>
         <button
           type="submit"
@@ -106,6 +107,12 @@ export function RegisterCard() {
           Cadastrar
         </button>
       </form>
+      <p className="mt-4 text-center text-gray-700">
+        Já tem uma conta?{" "}
+        <Link to="/" className="text-fulvouscolor hover:underline">
+          Fazer login
+        </Link>
+      </p>
       <pre className="text-black">{output}</pre>
     </>
   );

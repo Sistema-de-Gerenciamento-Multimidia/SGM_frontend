@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useNavigate } from "react-router-dom";
 
 const loginUserFormSchema = z.object({
   username: z.string().nonempty("O nome é obrigatório!").min(6, "O username precisa de no mínimo 6 caracteres!"),
@@ -12,6 +13,7 @@ type loginUserFormData = z.infer<typeof loginUserFormSchema>;
 
 export function LoginCard() {
   const [output, setOutput] = useState("");
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -22,6 +24,7 @@ export function LoginCard() {
 
   function loginUser(data: loginUserFormData) {
     setOutput(JSON.stringify(data, null, 2));
+    navigate("/home");
   }
 
   return (
