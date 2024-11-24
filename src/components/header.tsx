@@ -4,7 +4,9 @@ import { FaCog, FaUserCircle } from "react-icons/fa";
 export function Header() {
   return (
     <header className="bg-white shadow-md p-4 flex items-center justify-between">
-      <h1 className="text-2xl font-bold text-fulvouscolor">Nome do App</h1>
+      <Link to="/dashboard">  
+        <h1 className="text-2xl font-bold text-fulvouscolor">Nome do App</h1>
+      </Link>
       <input
         type="text"
         placeholder="Pesquisar arquivos..."

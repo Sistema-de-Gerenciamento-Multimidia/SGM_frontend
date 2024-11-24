@@ -14,11 +14,10 @@ export function PerfilPage() {
     
         <Header />
 
-      {/* Conteúdo Principal */}
       <main className="flex-grow p-6">
-        {/* Seção de Perfil */}
+        {/* Div perfil*/}
         <div className="bg-white p-6 rounded shadow flex items-center space-x-6">
-          {/* Foto de Perfil */}
+          {/* Div foto de perfil */}
           <div className="w-28 h-28 rounded-full overflow-hidden border border-gray-300">
             <img 
                 src={Perfil}
@@ -26,7 +25,6 @@ export function PerfilPage() {
                 className="w-full h-full object-cover" 
             />
             </div>
-          {/* Informações do Perfil */}
           <div>
             <h2 className="text-2xl font-semibold">Nome do Usuário</h2>
             <div className="flex space-x-4 mt-2">
@@ -63,7 +61,6 @@ export function PerfilPage() {
               </li>
             ))}
           </ul>
-          {/* Conteúdo */}
           <div className="bg-white p-6 mt-4 shadow rounded">
             {activeTab === 'Galeria' && <Galeria />}
             {activeTab === 'Fotos' && <Fotos />}
