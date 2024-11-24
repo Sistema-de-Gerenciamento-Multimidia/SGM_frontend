@@ -1,39 +1,65 @@
-import { useState } from 'react';
-import Perfil from "../../public/robot_perfil.png";
-import { Galeria } from '../components/perfil_galeria';
-import { Fotos } from '../components/perfil_fotos';
-import { Videos } from '../components/perfil_videos';
-import { Audio } from '../components/perfil_audio';
-import { Header } from "../components/header"
+import { useState } from "react";
+import { Galeria } from "../components/perfil_galeria";
+import { Fotos } from "../components/perfil_fotos";
+import { Videos } from "../components/perfil_videos";
+import { Audio } from "../components/perfil_audio";
+import { Header } from "../components/header";
+import { EditProfileModal } from "../components/perfil_edit";
 
 export function PerfilPage() {
   const [activeTab, setActiveTab] = useState('Galeria');
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [feedbackPopup, setFeedbackPopup] = useState(false);
+
+  const [profileData, setProfileData] = useState({
+    nome: 'Nome do Usuário',
+    bio: 'Aqui vai a bio do usuário.',
+    seguidores: 100,
+    seguindo: 150,
+    fotoPerfil: '/robot_perfil.png',
+  });
+
+  const handleSave = (updatedData: typeof profileData) => {
+    setProfileData(updatedData);
+    setIsEditModalOpen(false);
+    setFeedbackPopup(true);
+
+    setTimeout(() => setFeedbackPopup(false), 2000);
+  };
 
   return (
     <div className="flex flex-col h-screen bg-gray-100">
-    
-        <Header />
+      <Header />
 
       <main className="flex-grow p-6">
-        {/* Div perfil*/}
         <div className="bg-white p-6 rounded shadow flex items-center space-x-6">
-          {/* Div foto de perfil */}
+          {/* Foto de Perfil */}
           <div className="w-28 h-28 rounded-full overflow-hidden border border-gray-300">
-            <img 
-                src={Perfil}
-                alt="Foto de Perfil" 
-                className="w-full h-full object-cover" 
+            <img
+              src={profileData.fotoPerfil}
+              alt="Foto de Perfil"
+              className="w-full h-full object-cover"
             />
-            </div>
+          </div>
+          {/* Informações do Perfil */}
           <div>
-            <h2 className="text-2xl font-semibold">Nome do Usuário</h2>
+            <h2 className="text-2xl font-semibold">{profileData.nome}</h2>
+            {/* Bio */}
+            <p className="mt-2 text-gray-600">{profileData.bio}</p>
             <div className="flex space-x-4 mt-2">
-              <p><span className="font-bold">100</span> Seguidores</p>
-              <p><span className="font-bold">150</span> Seguindo</p>
+              <p>
+                <span className="font-bold">{profileData.seguidores}</span> Seguidores
+              </p>
+              <p>
+                <span className="font-bold">{profileData.seguindo}</span> Seguindo
+              </p>
             </div>
             {/* Botões */}
             <div className="flex space-x-4 mt-4">
-              <button className="bg-fulvouscolor text-white px-4 py-2 rounded shadow hover:bg-fulvoushover">
+              <button
+                className="bg-fulvouscolor text-white px-4 py-2 rounded shadow hover:bg-fulvoushover"
+                onClick={() => setIsEditModalOpen(true)}
+              >
                 Alterar Perfil
               </button>
               <button className="bg-gray-200 text-gray-700 px-4 py-2 rounded shadow hover:bg-gray-300">
@@ -61,6 +87,7 @@ export function PerfilPage() {
               </li>
             ))}
           </ul>
+          {/* Conteúdo */}
           <div className="bg-white p-6 mt-4 shadow rounded">
             {activeTab === 'Galeria' && <Galeria />}
             {activeTab === 'Fotos' && <Fotos />}
@@ -68,6 +95,21 @@ export function PerfilPage() {
             {activeTab === 'Audio' && <Audio />}
           </div>
         </div>
+
+        {/* Modal de Edição de Perfil */}
+        {isEditModalOpen && (
+          <EditProfileModal
+            profileData={profileData}
+            setProfileData={handleSave}
+            onClose={() => setIsEditModalOpen(false)}
+          />
+        )}
+
+        {feedbackPopup && (
+          <div className="fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded shadow">
+            Alterações salvas com sucesso!
+          </div>
+        )}
       </main>
     </div>
   );
