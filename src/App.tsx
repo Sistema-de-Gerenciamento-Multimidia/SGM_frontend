@@ -6,10 +6,6 @@ const router = createBrowserRouter([
     path: "/",
     element: <InicialPage />
   },
-  // {
-  //   path: "/register",
-  //   element: <RegisterCard />
-  // }
 ])
 
 export function App() {
