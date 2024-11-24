@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Link } from "react-router-dom"; // Use Link para navegação interna
 
 const createUserFormSchema = z.object({
   name: z
@@ -107,12 +106,6 @@ export function RegisterCard() {
           Cadastrar
         </button>
       </form>
-      <p className="mt-4 text-center text-gray-700">
-        Já tem uma conta?{" "}
-        <Link to="/" className="text-fulvouscolor hover:underline">
-          Fazer login
-        </Link>
-      </p>
       <pre className="text-black">{output}</pre>
     </>
   );

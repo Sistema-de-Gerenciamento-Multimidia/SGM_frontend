@@ -17,16 +17,20 @@ export function InicialPage() {
       </div>
       <div className="w-[40%] text-white flex items-center justify-center">
         <div className="shadow-shape rounded-md w-[60%] h-auto bg-slate-200 p-6 flex flex-col items-center space-y-4">
+          {/* Cabeçalho do Card */}
           <div className="flex flex-col items-center space-y-1">
             <h1 className="text-fulvouscolor font-bold text-3xl">
               {activeCard === "login" ? "Login" : "Cadastro"}
             </h1>
           </div>
 
-          {activeCard === "login" ? (
-            <>
-              <LoginCard />
-              <div className="text-right w-full text-gray-400 text-sm mt-2">
+          {/* Card de Login ou Cadastro */}
+          {activeCard === "login" ? <LoginCard /> : <RegisterCard />}
+
+          {/* Texto "Não possui conta?" ou "Já possui conta?" */}
+          <div className="text-center w-full text-gray-400 text-sm mt-4">
+            {activeCard === "login" ? (
+              <>
                 Não possui conta?{" "}
                 <a
                   className="text-fulvoushover underline text-sm"
@@ -35,11 +39,20 @@ export function InicialPage() {
                 >
                   Registrar-se
                 </a>
-              </div>
-            </>
-          ) : (
-            <RegisterCard />
-          )}
+              </>
+            ) : (
+              <>
+                Já possui conta?{" "}
+                <a
+                  className="text-fulvoushover underline text-sm"
+                  href="#"
+                  onClick={() => toggleCard("login")}
+                >
+                  Login
+                </a>
+              </>
+            )}
+          </div>
         </div>
       </div>
     </div>
