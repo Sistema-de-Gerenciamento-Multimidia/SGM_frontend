@@ -35,6 +35,7 @@ export function EditProfileModal({
   setProfileData,
   onClose,
 }: EditProfileModalProps) {
+
   const {
     register,
     handleSubmit,
@@ -63,17 +64,17 @@ export function EditProfileModal({
   }
 
   return (
-    <form onSubmit={handleSubmit(editUser)}>
+    <form className="flex flex-col" onSubmit={handleSubmit(editUser)}>
       <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-        <div className="bg-white p-6 rounded shadow w-96">
+        <div className="bg-primarylemon p-6 rounded shadow w-96">
           <h2 className="text-xl font-semibold mb-4">Editar Perfil</h2>
 
           {/* Nome */}
           <div className="mb-4">
-            <label className="block text-gray-700">Nome:</label>
+            <label className="block text-gray-700">Nome de Usuário</label>
             <input
               type="text"
-              className="w-full px-3 py-2 border rounded"
+              className="w-full px-3 py-2 border rounded outline-none"
               {...register("username")}
               onBlur={(e) => setValue("username", e.target.value)} // Atualizar estado no blur
             />
@@ -82,22 +83,22 @@ export function EditProfileModal({
 
           {/* Bio */}
           <div className="mb-4">
-            <label className="block text-gray-700">Bio:</label>
+            <label className="block text-gray-700">Bio</label>
             <textarea
               value={bio}
               onChange={(e) => setBio(e.target.value)}
-              className="w-full px-3 py-2 border rounded"
+              className="w-full px-3 py-2 border rounded outline-none"
             />
           </div>
 
           {/* Foto de Perfil */}
           <div className="mb-4">
-            <label className="block text-gray-700">Foto de Perfil (URL):</label>
+            <label className="block text-gray-700">Foto de Perfil (URL)</label>
             <input
               type="text"
               value={fotoPerfil}
               onChange={(e) => setFotoPerfil(e.target.value)}
-              className="w-full px-3 py-2 border rounded"
+              className="w-full px-3 py-2 border rounded outline-none"
             />
           </div>
 
