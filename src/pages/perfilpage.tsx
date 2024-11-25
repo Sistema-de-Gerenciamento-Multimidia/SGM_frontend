@@ -5,11 +5,11 @@ import { Videos } from "../components/perfil_videos";
 import { Audio } from "../components/perfil_audio";
 import { Header } from "../components/header";
 import { EditProfileModal } from "../components/perfil_edit";
+import { toast } from "sonner";
 
 export function PerfilPage() {
   const [activeTab, setActiveTab] = useState('Galeria');
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [feedbackPopup, setFeedbackPopup] = useState(false);
 
   const [profileData, setProfileData] = useState({
     nome: 'Nome do Usuário',
@@ -22,9 +22,8 @@ export function PerfilPage() {
   const handleSave = (updatedData: typeof profileData) => {
     setProfileData(updatedData);
     setIsEditModalOpen(false);
-    setFeedbackPopup(true);
 
-    setTimeout(() => setFeedbackPopup(false), 2000);
+    toast.success("Alterações salvas com sucesso!");
   };
 
   return (
@@ -105,11 +104,6 @@ export function PerfilPage() {
           />
         )}
 
-        {feedbackPopup && (
-          <div className="fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded shadow">
-            Alterações salvas com sucesso!
-          </div>
-        )}
       </main>
     </div>
   );
