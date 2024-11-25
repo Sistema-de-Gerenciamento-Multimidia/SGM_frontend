@@ -11,7 +11,7 @@ const loginUserFormSchema = z.object({
 type loginUserFormData = z.infer<typeof loginUserFormSchema>;
 
 export function LoginCard() {
-  const [output, setOutput] = useState("");
+  const [, setOutput] = useState("");
   const {
     register,
     handleSubmit,
@@ -53,7 +53,7 @@ export function LoginCard() {
           />
            {errors.password && <span className="text-red-600 text-sm">{errors.password.message}</span>}
           <div className="flex flex-col items-center mt-2">
-            <a href="#" className="text-fulvoushover underline text-sm">
+            <a href="/password_recuperation" className="text-fulvoushover underline text-sm">
               Esqueci minha senha
             </a>
           </div>
@@ -65,7 +65,7 @@ export function LoginCard() {
           Entrar
         </button>
       </form>
-      <pre className="text-black">{output}</pre>
+      {/* <pre className="text-black">{output}</pre> */}
     </>
   );
 }

@@ -31,7 +31,7 @@ const createUserFormSchema = z.object({
 type CreateUserFormData = z.infer<typeof createUserFormSchema>;
 
 export function RegisterCard() {
-  const [output, setOutput] = useState("");
+  const [, setOutput] = useState("");
   const {
     register,
     handleSubmit,
@@ -106,7 +106,7 @@ export function RegisterCard() {
           Cadastrar
         </button>
       </form>
-      <pre className="text-black">{output}</pre>
+      {/* <pre className="text-black">{output}</pre> */}
     </>
   );
 }
