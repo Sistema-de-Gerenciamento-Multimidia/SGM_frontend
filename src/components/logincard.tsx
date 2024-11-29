@@ -1,17 +1,25 @@
-import { useState } from "react";
+// import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 const loginUserFormSchema = z.object({
   username: z.string().nonempty("O nome é obrigatório!").min(6, "O username precisa de no mínimo 6 caracteres!"),
   password: z.string().min(6, "A senha precisa de no mínimo 6 caracteres!"),
 });
 
+const api = axios.create({
+  baseURL: 'https://sgm-backend-test.onrender.com/api/v1',
+});
+
+
+
 type loginUserFormData = z.infer<typeof loginUserFormSchema>;
 
 export function LoginCard() {
-  const [, setOutput] = useState("");
+  // const [, setOutput] = useState("");
   const {
     register,
     handleSubmit,
@@ -20,13 +28,31 @@ export function LoginCard() {
     resolver: zodResolver(loginUserFormSchema),
   });
 
-  function loginUser(data: loginUserFormData) {
-    setOutput(JSON.stringify(data, null, 2));
-  }
+  const navigate = useNavigate();
+
+
+  // function loginUser(data: loginUserFormData) {
+  //   setOutput(JSON.stringify(data, null, 2));
+  // }
+
+  const loginUser = async (data: loginUserFormData) => {
+    try {
+      const response = await api.post('/authentication/token/', data);
+      navigate("/dashboard");
+      console.log("Resposta do servidor:", response.data);
+      sessionStorage.setItem("token",response.data.access)
+    } catch (error: any) {
+      console.error("Erro ao logar usuário:", error.response?.data || error.message);
+    }
+  };
+
+  const onSubmit = (data: loginUserFormData) => {
+    loginUser(data);
+  };
 
   return (
     <>
-      <form className="flex flex-col w-full max-w-xs gap-3"  onSubmit={handleSubmit(loginUser)}>
+      <form className="flex flex-col w-full max-w-xs gap-3"  onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-col">
           <label className="text-fulvouscolor font-semibold" htmlFor="username">
             Nome de Usuário
