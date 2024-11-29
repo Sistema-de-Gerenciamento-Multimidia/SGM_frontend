@@ -1,13 +1,18 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
-import { InicialPage } from "./pages/inicialpage";
+import { InicialPageLogin } from "./pages/inicialpagelogin";
 import { DashboardPage } from "./pages/dashboardpage";
 import { PerfilPage } from "./pages/perfilpage"
 import { PasswordRecuperation } from "./pages/password_recuperation";
+import { InicialPageRegister } from "./pages/inicialpageregister";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <InicialPage />
+    element: <InicialPageLogin />
+  },
+  {
+    path: "/register",
+    element: <InicialPageRegister />
   },
   {
     path: "/dashboard",
