@@ -44,7 +44,7 @@ export function LoginCard() {
       sessionStorage.setItem("token",response.data.access)
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      toast.error('Nome de Usúário e/ou senha inválidos!');
+      toast.error('Nome de Usuário e/ou senha inválidos!');
       console.error("Erro ao logar usuário:", error.response?.data || error.message);
     }
   };
