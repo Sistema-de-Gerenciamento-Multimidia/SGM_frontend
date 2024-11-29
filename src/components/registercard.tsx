@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from 'axios';
-import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 // Esquema de validação
 const createUserFormSchema = z.object({
@@ -62,7 +63,6 @@ export function RegisterCard() {
       navigate("/");
       toast.success("Cadastro realizado com sucesso!");
       console.log("Resposta do servidor:", response.data);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       console.error("Erro ao cadastrar usuário:", error.response?.data || error.message);
       setMessage("Erro ao cadastrar usuário.");

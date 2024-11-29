@@ -7,8 +7,7 @@ import { InicialPageRegister } from "./pages/inicialpageregister";
 
 
 const isAuthenticated = () => {
- 
-  return localStorage.getItem("authToken") !== null;
+  return sessionStorage.getItem("token") !== null;
 };
 
 // Componente para proteger rotas
@@ -35,7 +34,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/password_recuperation",
-    element: <ProtectedRoute element={<PasswordRecuperation />} />,
+    element: <PasswordRecuperation />
   },
 ]);
 

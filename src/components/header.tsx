@@ -1,9 +1,18 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaCog, FaUserCircle } from "react-icons/fa";
 import { LogOut } from "lucide-react";
 
 
+
+
 export function Header() {
+  const navigate = useNavigate();
+
+  function logOut() {
+    sessionStorage.removeItem("token");
+    navigate("/");
+  }
+
   return (
     <header className="bg-white shadow-md p-4 flex items-center justify-between">
       <Link to="/dashboard">  
@@ -19,9 +28,9 @@ export function Header() {
         <Link to="/perfil">
           <FaUserCircle className="text-gray-600 text-2xl cursor-pointer hover:text-fulvoushover" />
         </Link>
-        <Link to="/">
+        <button onClick={logOut}>
           <LogOut className="text-gray-600 text-2xl cursor-pointer hover:text-fulvoushover" />
-        </Link>
+        </button>
       </div>
     </header>
   );
