@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
 import { toast } from "sonner";
 import { EditProfileModal } from "../perfil_edit";
+import { Modal_Password } from "../modal_password";
 
 interface CustomSelectProps {
   profileData: {
@@ -20,8 +21,12 @@ interface CustomSelectProps {
   }) => void;
 }
 
-export function CustomSelect({ profileData, setProfileData }: CustomSelectProps) {
+export function CustomSelect({
+  profileData,
+  setProfileData,
+}: CustomSelectProps) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -38,7 +43,6 @@ export function CustomSelect({ profileData, setProfileData }: CustomSelectProps)
         dropdownRef.current &&
         !dropdownRef.current.contains(event.target as Node)
       ) {
-        console.log("Clique fora detectado");
         setIsDropdownOpen(false);
       }
     }
@@ -72,10 +76,13 @@ export function CustomSelect({ profileData, setProfileData }: CustomSelectProps)
             Alterar Perfil
           </div>
           <div
-            className="text-white hover:bg-fulvoushover cursor-pointer p-2 rounded flex justify-center"
-            onClick={() => setIsDropdownOpen(false)}
+            className="text-white hover:bg-red-600 cursor-pointer p-2 rounded flex justify-center"
+            onClick={() => {
+              setIsDropdownOpen(false);
+              setIsPasswordModalOpen(true);
+            }}
           >
-            Compartilhar
+            Alterar Senha
           </div>
         </div>
       )}
@@ -86,6 +93,10 @@ export function CustomSelect({ profileData, setProfileData }: CustomSelectProps)
           setProfileData={handleSave}
           onClose={() => setIsEditModalOpen(false)}
         />
+      )}
+
+      {isPasswordModalOpen && (
+        <Modal_Password onClose={() => setIsPasswordModalOpen(false)} />
       )}
     </div>
   );

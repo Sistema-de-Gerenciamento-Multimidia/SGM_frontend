@@ -6,13 +6,13 @@ import { Audio } from "../components/perfil_audio";
 import { Header } from "../components/header";
 import { EditProfileModal } from "../components/perfil_edit";
 import { toast } from "sonner";
-// import { DotsHorizontalIcon } from "@radix-ui/react-icons";
-// import * as SelectPrimitive from "@radix-ui/react-select";
 import { CustomSelect } from "../components/ui/select";
+
 
 export function PerfilPage() {
   const [activeTab, setActiveTab] = useState("Galeria");
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  
 
   const [profileData, setProfileData] = useState({
     nome: "Nome do Usuário",
@@ -45,15 +45,14 @@ export function PerfilPage() {
           </div>
           {/* Informações do Perfil */}
           <div className="w-full">
-            <div className="flex  justify-between">
+            <div className="flex justify-between">
               <h2 className="text-3xl font-semibold">{profileData.nome}</h2>
               <CustomSelect
-               profileData={profileData}
-               setProfileData={setProfileData} 
+                profileData={profileData}
+                setProfileData={setProfileData}
               />
             </div>
             {/* Bio */}
-
             <p className="mt-2 text-gray-600">{profileData.bio}</p>
             <div className="flex space-x-4 mt-2">
               <p>
@@ -65,18 +64,6 @@ export function PerfilPage() {
                 Seguindo
               </p>
             </div>
-            {/* Botões */}
-            {/* <div className="flex space-x-4 mt-4">
-              <button
-                className="bg-fulvouscolor text-white px-4 py-2 rounded shadow hover:bg-fulvoushover"
-                onClick={() => setIsEditModalOpen(true)}
-              >
-                Alterar Perfil
-              </button>
-              <button className="bg-gray-200 text-gray-700 px-4 py-2 rounded shadow hover:bg-gray-300">
-                Compartilhar
-              </button>
-            </div> */}
           </div>
         </div>
 
@@ -115,6 +102,7 @@ export function PerfilPage() {
             onClose={() => setIsEditModalOpen(false)}
           />
         )}
+
       </main>
     </div>
   );

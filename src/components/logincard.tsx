@@ -8,7 +8,7 @@ import { toast } from "sonner";
 
 const loginUserFormSchema = z.object({
   username: z.string().nonempty("O nome é obrigatório!").min(6, "O username precisa de no mínimo 6 caracteres!"),
-  password: z.string().min(6, "A senha precisa de no mínimo 6 caracteres!"),
+  password: z.string().min(8, "A senha precisa de no mínimo 8 caracteres!"),
 });
 
 const api = axios.create({
