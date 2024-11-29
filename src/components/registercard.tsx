@@ -30,11 +30,18 @@ const createUserFormSchema = z.object({
     .nonempty("O email é obrigatório")
     .email("Formato de email inválido")
     .toLowerCase(),
-  password: z.string().min(8, "A senha precisa de no mínimo 8 caracteres!"),
+  password: z.string().min(8, "A senha precisa de no mínimo 8 caracteres!")
+  .refine((password) => !/^\d+$/.test(password), {
+    message: "A senha não pode ser somente de números!",
+  }),
   confirm_password: z
     .string()
     .min(8, "A senha precisa de no mínimo 8 caracteres!"),
+}).refine((data) => data.password === data.confirm_password, {
+  message: "As senhas precisam ser iguais!",
+  path: ["confirm_password"], // Campo onde o erro será exibido
 });
+
 
 const api = axios.create({
   baseURL: 'https://sgm-backend-test.onrender.com/api/v1',
@@ -43,7 +50,7 @@ const api = axios.create({
 type CreateUserFormData = z.infer<typeof createUserFormSchema>;
 
 export function RegisterCard() {
-  const [message, setMessage] = useState("");
+  const [message, ] = useState("");
   const {
     register,
     handleSubmit,
@@ -65,7 +72,7 @@ export function RegisterCard() {
       console.log("Resposta do servidor:", response.data);
     } catch (error: any) {
       console.error("Erro ao cadastrar usuário:", error.response?.data || error.message);
-      setMessage("Erro ao cadastrar usuário.");
+      // setMessage("Erro ao cadastrar usuário.");
     }
   };
 
