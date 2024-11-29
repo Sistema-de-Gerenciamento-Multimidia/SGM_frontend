@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { FaCog, FaUserCircle } from "react-icons/fa";
+import { LogOut } from "lucide-react";
+
 
 export function Header() {
   return (
@@ -16,6 +18,9 @@ export function Header() {
         <FaCog className="text-gray-600 text-2xl cursor-pointer hover:text-fulvoushover" />
         <Link to="/perfil">
           <FaUserCircle className="text-gray-600 text-2xl cursor-pointer hover:text-fulvoushover" />
+        </Link>
+        <Link to="/">
+          <LogOut className="text-gray-600 text-2xl cursor-pointer hover:text-fulvoushover" />
         </Link>
       </div>
     </header>
