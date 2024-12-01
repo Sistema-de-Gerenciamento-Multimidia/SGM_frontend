@@ -1,48 +1,17 @@
 import { useEffect, useState, useRef } from "react";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
-import { toast } from "sonner";
+// import { toast } from "sonner";
 import { EditProfileModal } from "../perfil_edit";
 import { Modal_Password } from "../modal_password";
+// import { useUser } from "../../userContext";  // Importando o hook para acessar o contexto
 
-interface CustomSelectProps {
-  profileData: {
-    id: number | null;
-    email: string;
-    username: string;
-    name: string;
-    description: string | null;
-    date_joined: string;
-    date_of_birth: string | null;
-    profile_picture: string;
-  };
-  setProfileData: (updatedData: {
-    id: number | null;
-    email: string;
-    username: string;
-    name: string;
-    description: string | null;
-    date_joined: string;
-    date_of_birth: string | null;
-    profile_picture: string;
-  }) => void;
-}
-
-export function CustomSelect({
-  profileData,
-  setProfileData,
-}: CustomSelectProps) {
+export function CustomSelect() {
+  // const { setUser } = useUser();  // Pegando a função para atualizar os dados do usuário
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  const handleSave = (updatedData: typeof profileData) => {
-    setProfileData(updatedData);
-    setIsEditModalOpen(false);
-    toast.success("Alterações salvas com sucesso!");
-  };
-
-  // Fechar dropdown ao clicar fora
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
@@ -95,8 +64,6 @@ export function CustomSelect({
 
       {isEditModalOpen && (
         <EditProfileModal
-          profileData={profileData}
-          setProfileData={handleSave}
           onClose={() => setIsEditModalOpen(false)}
         />
       )}

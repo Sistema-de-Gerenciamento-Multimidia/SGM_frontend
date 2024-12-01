@@ -1,49 +1,23 @@
-import { useState } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { api } from "../api/token";
-
-interface EditProfileModalProps {
-  profileData: {
-    id: number | null;
-    email: string;
-    username: string;
-    name: string;
-    description: string | null;
-    date_joined: string;
-    date_of_birth: string | null;
-    profile_picture: string;
-  };
-  setProfileData: (updatedData: {
-    id: number | null;
-    email: string;
-    username: string;
-    name: string;
-    description: string | null;
-    date_joined: string;
-    date_of_birth: string | null;
-    profile_picture: string;
-  }) => void;
-  onClose: () => void;
-}
+import { useUser } from "../userContext"; // Importando o hook do contexto
 
 const editProfileFormSchema = z.object({
   username: z
     .string()
     .nonempty("O nome de usuário é obrigatório!")
     .min(6, "O username precisa de no mínimo 6 caracteres!"),
-  description: z.string(),
-  
+  description: z.string().optional(),
+  profile_picture: z.string().optional()
 });
 
 type editProfileFormData = z.infer<typeof editProfileFormSchema>;
 
-export function EditProfileModal({
-  profileData,
-  setProfileData,
-  onClose,
-}: EditProfileModalProps) {
+export function EditProfileModal({ onClose }: { onClose: () => void }) {
+  const { user, setUser } = useUser(); // Usando o contexto de usuário
   const {
     register,
     handleSubmit,
@@ -52,89 +26,118 @@ export function EditProfileModal({
   } = useForm<editProfileFormData>({
     resolver: zodResolver(editProfileFormSchema),
     defaultValues: {
-      username: profileData.username, // Nome inicial
+      username: user.username,
     },
   });
 
-  const [bio, setBio] = useState(profileData.description || "");
-  const [fotoPerfil, setFotoPerfil] = useState(profileData.profile_picture);
+  // Atualizar os valores do formulário ao carregar os dados do perfil
+  useEffect(() => {
+    setValue("username", user.username);
+    setValue("description", user.description || '');
+    setValue("profile_picture", user.profile_picture || '');
+  }, [user, setValue]);
 
   const editUser = async (data: editProfileFormData) => {
+    const idUsuario = user.id; // Usando o ID diretamente do contexto
+    console.log("ID do usuário:", idUsuario);
 
-    
+    if (!idUsuario) {
+      console.error("Usuário não encontrado.");
+      return;
+    }
 
-    const idUsuario = sessionStorage.getItem("user_id");
-    const response = await api.patch(`/users/${idUsuario}/`,data)
-
-    console.log(response)
-
-    // Atualizar os dados do perfil
-    setProfileData({
-      ...profileData, // Preservar os dados não alterados
+    const payload = {
       username: data.username,
-      description: bio, // Atualizar a descrição com o valor do estado local
-      profile_picture: fotoPerfil, // Atualizar a foto de perfil
-    });
-    onClose();
-  }
+      description: data.description || '',
+      profile_picture: data.profile_picture || '',
+    };
+
+    try {
+      const response = await api.patch(`/users/${idUsuario}`, payload);
+      if (response.status === 200) {
+        setUser(response.data);  // Atualizando o contexto com os novos dados
+        onClose();
+      }
+    } catch (error) {
+      console.error("Erro ao atualizar perfil", error);
+    }
+  };
 
   return (
-    <form className="flex flex-col" onSubmit={handleSubmit(editUser)}>
-      <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-        <div className="bg-primarylemon p-6 rounded shadow w-96">
-          <h2 className="text-xl font-semibold mb-4">Editar Perfil</h2>
+    <div
+      className="fixed inset-0 bg-gray-600 bg-opacity-50 z-50 flex items-center justify-center"
+      onClick={onClose}
+    >
+      <div
+        className="bg-white p-6 rounded-lg w-full max-w-md"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <h2 className="text-2xl font-semibold mb-4">Editar Perfil</h2>
 
-          {/* Nome */}
-          <div className="mb-4">
-            <label className="block text-gray-700">Nome de Usuário</label>
+        <form
+          onSubmit={handleSubmit(editUser)}
+          className="space-y-4"
+        >
+          <div className="flex flex-col">
+            <label htmlFor="username" className="text-gray-700">
+              Nome de usuário
+            </label>
             <input
               type="text"
-              className="w-full px-3 py-2 border rounded outline-none"
+              id="username"
+              className="p-2 border rounded"
               {...register("username")}
-              onBlur={(e) => setValue("username", e.target.value)} // Atualizar estado no blur
             />
-            {errors.username && (<span className="text-red-600 text-sm">{errors.username.message}</span>)}
+            {errors.username && (
+              <span className="text-red-500 text-sm">{errors.username.message}</span>
+            )}
           </div>
 
-          {/* Bio */}
-          <div className="mb-4">
-            <label className="block text-gray-700">Bio</label>
+          <div className="flex flex-col">
+            <label htmlFor="description" className="text-gray-700">
+              Descrição
+            </label>
             <textarea
-              value={bio}
-              onChange={(e) => setBio(e.target.value)}
-              className="w-full px-3 py-2 border rounded outline-none"
+              id="description"
+              className="p-2 border rounded"
+              {...register("description")}
             />
           </div>
 
-          {/* Foto de Perfil */}
-          <div className="mb-4">
-            <label className="block text-gray-700">Foto de Perfil (URL)</label>
+          <div className="flex flex-col">
+            <label htmlFor="profile_picture" className="text-gray-700">
+              Foto de Perfil (URL)
+            </label>
             <input
-              type="text"
-              value={fotoPerfil}
-              onChange={(e) => setFotoPerfil(e.target.value)}
-              className="w-full px-3 py-2 border rounded outline-none"
+              type="url"
+              id="profile_picture"
+              className="p-2 border rounded"
+              {...register("profile_picture")}
             />
+            {errors.profile_picture && (
+              <span className="text-red-500 text-sm">
+                {errors.profile_picture.message}
+              </span>
+            )}
           </div>
 
-          {/* Botões */}
-          <div className="flex justify-end space-x-4">
+          <div className="mt-4 flex justify-end">
             <button
-              onClick={onClose}
               type="button"
-              className="px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300"
+              className="mr-2 text-gray-500"
+              onClick={onClose}
             >
               Cancelar
             </button>
             <button
               type="submit"
-              className="px-4 py-2 bg-fulvouscolor text-white rounded hover:bg-fulvoushover"
+              className="px-4 py-2 bg-blue-500 text-white rounded"
             >
               Salvar
             </button>
           </div>
-        </div>
+        </form>
       </div>
-    </form>
+    </div>
   );
 }

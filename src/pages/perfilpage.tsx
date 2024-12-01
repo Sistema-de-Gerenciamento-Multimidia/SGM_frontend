@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useUser } from "../UserContext"; // Importando o hook para acessar o contexto
+import { useUser } from "../userContext"; // Importando o hook para acessar o contexto
 import { Galeria } from "../components/perfil_galeria";
 import { Fotos } from "../components/perfil_fotos";
 import { Videos } from "../components/perfil_videos";
@@ -7,18 +7,18 @@ import { Audio } from "../components/perfil_audio";
 import { Header } from "../components/header";
 import { EditProfileModal } from "../components/perfil_edit";
 import { CustomSelect } from "../components/ui/select";
-import { toast } from "sonner";
+// import { toast } from "sonner";
 
 export function PerfilPage() {
-  const { user, setUser } = useUser(); // Pegando os dados do usuário e a função para atualizá-los
+  const { user } = useUser(); // Pegando os dados do usuário e a função para atualizá-los
   const [activeTab, setActiveTab] = useState("Galeria");
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
-  const handleSave = (updatedData: typeof user) => {
-    setUser(updatedData); // Atualizando os dados do usuário no contexto
-    setIsEditModalOpen(false);
-    toast.success("Alterações salvas com sucesso!");
-  };
+  // const handleSave = (updatedData: typeof user) => {
+  //   setUser(updatedData); // Atualizando os dados do usuário no contexto
+  //   setIsEditModalOpen(false);
+  //   toast.success("Alterações salvas com sucesso!");
+  // };
 
   return (
     <div className="flex flex-col h-screen bg-gray-100">
@@ -38,10 +38,7 @@ export function PerfilPage() {
           <div className="w-full">
             <div className="flex justify-between">
               <h2 className="text-3xl font-semibold">{user.username}</h2>
-              <CustomSelect
-                profileData={user}
-                setProfileData={setUser}
-              />
+              <CustomSelect />
             </div>
             {/* Informações adicionais */}
             <div className="mt-4">
@@ -83,8 +80,6 @@ export function PerfilPage() {
         {/* Modal de Edição de Perfil */}
         {isEditModalOpen && (
           <EditProfileModal
-            profileData={user} // Usando os dados do contexto
-            setProfileData={handleSave}
             onClose={() => setIsEditModalOpen(false)}
           />
         )}

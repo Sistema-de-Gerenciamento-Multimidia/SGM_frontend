@@ -1,5 +1,6 @@
 import { UserData } from "./userData";
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function createUser(data: any): UserData {
   return {
     id: data.id,

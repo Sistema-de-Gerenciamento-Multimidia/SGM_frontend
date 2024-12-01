@@ -58,6 +58,7 @@ export function Modal_Password({ onClose }: ModalPasswordProps) {
       navigate("/");
       toast.success("Senha alterada com sucesso.")
       console.log("Resposta do servidor:", response.data);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       toast.error("Erro ao alterar senha.");
       console.error("Erro ao alterar senha.", error.response?.data || error.message);

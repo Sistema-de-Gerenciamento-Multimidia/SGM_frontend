@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 // import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { useUser } from "../UserContext"; // Importando o hook para acessar o contexto
+import { useUser } from "../userContext"; // Importando o hook para acessar o contexto
 import {UserData} from "../dataUser/userData";
 // import { createUser } from "../dataUser/functionData";
 import { api } from "../api/token";
@@ -28,31 +28,32 @@ export function LoginCard() {
   const loginUser = async (data: loginUserFormData) => {
     try {
       const response = await api.post('/authentication/token/', data);
-      sessionStorage.setItem("token", response.data.access);
-
-      const idUsuario = sessionStorage.getItem("user_id");
-      const dados = await api.get<UserData>(`/users/${idUsuario}/`);
-
-      const userData = { 
-        id: dados.data.id,
-        email: dados.data.email,
-        username: dados.data.username,
-        name: dados.data.name,
-        description: dados.data.description,
-        date_joined: dados.data.date_joined,
-        date_of_birth: dados.data.date_of_birth,
-        profile_picture: dados.data.profile_picture
-      };
-      console.log(userData)
-      setUser(userData); // Atualizando os dados do usuário no contexto
-      navigate("/dashboard");
-     
-
-
+      const token = response.data.access;
+      const userId = response.data.user_id;
+  
+      if (!userId) {
+        throw new Error('ID do usuário não foi retornado pelo backend.');
+      }
+  
+      // Armazene o token e o user_id no sessionStorage
+      sessionStorage.setItem('token', token);
+      sessionStorage.setItem('user_id', userId);
+  
+      // Adicione o token ao cabeçalho para chamadas futuras
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+  
+      // Faça a requisição para obter os dados do usuário
+      const userResponse = await api.get<UserData>(`/users/${userId}/`);
+  
+      // Atualize o contexto do usuário
+      const userData = userResponse.data;
+      setUser(userData); // Atualize o contexto com os dados do usuário
+  
+      navigate('/dashboard');
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       toast.error('Nome de Usuário e/ou senha inválidos!');
-      console.error("Erro ao logar usuário:", error.response?.data || error.message);
+      console.error('Erro ao logar usuário:', error.response?.data || error.message);
     }
   };
 
