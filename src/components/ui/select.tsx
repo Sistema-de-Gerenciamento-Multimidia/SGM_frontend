@@ -6,18 +6,24 @@ import { Modal_Password } from "../modal_password";
 
 interface CustomSelectProps {
   profileData: {
-    nome: string;
-    bio: string;
-    seguidores: number;
-    seguindo: number;
-    fotoPerfil: string;
+    id: number | null;
+    email: string;
+    username: string;
+    name: string;
+    description: string | null;
+    date_joined: string;
+    date_of_birth: string | null;
+    profile_picture: string;
   };
   setProfileData: (updatedData: {
-    nome: string;
-    bio: string;
-    seguidores: number;
-    seguindo: number;
-    fotoPerfil: string;
+    id: number | null;
+    email: string;
+    username: string;
+    name: string;
+    description: string | null;
+    date_joined: string;
+    date_of_birth: string | null;
+    profile_picture: string;
   }) => void;
 }
 

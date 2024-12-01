@@ -1,31 +1,22 @@
 import { useState } from "react";
+import { useUser } from "../UserContext"; // Importando o hook para acessar o contexto
 import { Galeria } from "../components/perfil_galeria";
 import { Fotos } from "../components/perfil_fotos";
 import { Videos } from "../components/perfil_videos";
 import { Audio } from "../components/perfil_audio";
 import { Header } from "../components/header";
 import { EditProfileModal } from "../components/perfil_edit";
-import { toast } from "sonner";
 import { CustomSelect } from "../components/ui/select";
-
+import { toast } from "sonner";
 
 export function PerfilPage() {
+  const { user, setUser } = useUser(); // Pegando os dados do usuário e a função para atualizá-los
   const [activeTab, setActiveTab] = useState("Galeria");
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  
 
-  const [profileData, setProfileData] = useState({
-    nome: "Nome do Usuário",
-    bio: "Aqui vai a bio do usuário.",
-    seguidores: 100,
-    seguindo: 150,
-    fotoPerfil: "/robot_perfil.png",
-  });
-
-  const handleSave = (updatedData: typeof profileData) => {
-    setProfileData(updatedData);
+  const handleSave = (updatedData: typeof user) => {
+    setUser(updatedData); // Atualizando os dados do usuário no contexto
     setIsEditModalOpen(false);
-
     toast.success("Alterações salvas com sucesso!");
   };
 
@@ -38,7 +29,7 @@ export function PerfilPage() {
           {/* Foto de Perfil */}
           <div className="w-28 h-28 rounded-full overflow-hidden border border-gray-300">
             <img
-              src={profileData.fotoPerfil}
+              src={user.profile_picture}
               alt="Foto de Perfil"
               className="w-full h-full object-cover"
             />
@@ -46,23 +37,18 @@ export function PerfilPage() {
           {/* Informações do Perfil */}
           <div className="w-full">
             <div className="flex justify-between">
-              <h2 className="text-3xl font-semibold">{profileData.nome}</h2>
+              <h2 className="text-3xl font-semibold">{user.username}</h2>
               <CustomSelect
-                profileData={profileData}
-                setProfileData={setProfileData}
+                profileData={user}
+                setProfileData={setUser}
               />
             </div>
-            {/* Bio */}
-            <p className="mt-2 text-gray-600">{profileData.bio}</p>
-            <div className="flex space-x-4 mt-2">
-              <p>
-                <span className="font-bold">{profileData.seguidores}</span>{" "}
-                Seguidores
-              </p>
-              <p>
-                <span className="font-bold">{profileData.seguindo}</span>{" "}
-                Seguindo
-              </p>
+            {/* Informações adicionais */}
+            <div className="mt-4">
+              <p className="text-gray-600"><strong>Nome Completo:</strong> {user.name}</p>
+              <p className="text-gray-600"><strong>Email:</strong> {user.email}</p>
+              <p className="text-gray-600"><strong>Data de Criação:</strong> {user.date_joined}</p>
+              <p className="mt-2 text-gray-600"><strong>Bio:</strong> {user.description}</p>
             </div>
           </div>
         </div>
@@ -97,12 +83,11 @@ export function PerfilPage() {
         {/* Modal de Edição de Perfil */}
         {isEditModalOpen && (
           <EditProfileModal
-            profileData={profileData}
+            profileData={user} // Usando os dados do contexto
             setProfileData={handleSave}
             onClose={() => setIsEditModalOpen(false)}
           />
         )}
-
       </main>
     </div>
   );

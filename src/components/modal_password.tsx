@@ -2,6 +2,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
+import { api } from '../api/token';
 
 const modalPasswordFormSchema = z
   .object({
@@ -29,6 +31,8 @@ const modalPasswordFormSchema = z
     path: ["confirm_new_password"],
   });
 
+  
+
 type ModalPasswordFormData = z.infer<typeof modalPasswordFormSchema>;
 
 interface ModalPasswordProps {
@@ -44,10 +48,20 @@ export function Modal_Password({ onClose }: ModalPasswordProps) {
     resolver: zodResolver(modalPasswordFormSchema),
   });
 
-  const editPassword = (data: ModalPasswordFormData) => {
-    console.log("Senha alterada com sucesso!", data);
-    toast.success("Senha alterada com sucesso!");
-    onClose();
+  const navigate = useNavigate();
+
+  const editPassword = async (data: ModalPasswordFormData) => {
+    const idUsuario = sessionStorage.getItem("user_id");
+  
+    try {
+      const response = await api.patch(`/change-password/${idUsuario}/`, data); // Use backticks
+      navigate("/");
+      toast.success("Senha alterada com sucesso.")
+      console.log("Resposta do servidor:", response.data);
+    } catch (error: any) {
+      toast.error("Erro ao alterar senha.");
+      console.error("Erro ao alterar senha.", error.response?.data || error.message);
+    }
   };
 
   return (

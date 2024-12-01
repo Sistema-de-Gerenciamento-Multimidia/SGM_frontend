@@ -2,21 +2,28 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { api } from "../api/token";
 
 interface EditProfileModalProps {
   profileData: {
-    nome: string;
-    bio: string;
-    seguidores: number;
-    seguindo: number;
-    fotoPerfil: string;
+    id: number | null;
+    email: string;
+    username: string;
+    name: string;
+    description: string | null;
+    date_joined: string;
+    date_of_birth: string | null;
+    profile_picture: string;
   };
   setProfileData: (updatedData: {
-    nome: string;
-    bio: string;
-    seguidores: number;
-    seguindo: number;
-    fotoPerfil: string;
+    id: number | null;
+    email: string;
+    username: string;
+    name: string;
+    description: string | null;
+    date_joined: string;
+    date_of_birth: string | null;
+    profile_picture: string;
   }) => void;
   onClose: () => void;
 }
@@ -26,6 +33,8 @@ const editProfileFormSchema = z.object({
     .string()
     .nonempty("O nome de usuário é obrigatório!")
     .min(6, "O username precisa de no mínimo 6 caracteres!"),
+  description: z.string(),
+  
 });
 
 type editProfileFormData = z.infer<typeof editProfileFormSchema>;
@@ -35,7 +44,6 @@ export function EditProfileModal({
   setProfileData,
   onClose,
 }: EditProfileModalProps) {
-
   const {
     register,
     handleSubmit,
@@ -44,21 +52,28 @@ export function EditProfileModal({
   } = useForm<editProfileFormData>({
     resolver: zodResolver(editProfileFormSchema),
     defaultValues: {
-      username: profileData.nome, // Nome inicial
+      username: profileData.username, // Nome inicial
     },
   });
 
-  const [bio, setBio] = useState(profileData.bio);
-  const [fotoPerfil, setFotoPerfil] = useState(profileData.fotoPerfil);
+  const [bio, setBio] = useState(profileData.description || "");
+  const [fotoPerfil, setFotoPerfil] = useState(profileData.profile_picture);
 
-  function editUser(data: editProfileFormData) {
+  const editUser = async (data: editProfileFormData) => {
+
+    
+
+    const idUsuario = sessionStorage.getItem("user_id");
+    const response = await api.patch(`/users/${idUsuario}/`,data)
+
+    console.log(response)
+
     // Atualizar os dados do perfil
     setProfileData({
-      nome: data.username,
-      bio,
-      fotoPerfil,
-      seguidores: profileData.seguidores,
-      seguindo: profileData.seguindo,
+      ...profileData, // Preservar os dados não alterados
+      username: data.username,
+      description: bio, // Atualizar a descrição com o valor do estado local
+      profile_picture: fotoPerfil, // Atualizar a foto de perfil
     });
     onClose();
   }
