@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useUser } from "../UserContext"; // Importando o hook para acessar o contexto
+import { useUser } from "../userContext"; // Importando o hook para acessar o contexto
 import { Galeria } from "../components/perfil_galeria";
 import { Fotos } from "../components/perfil_fotos";
 import { Videos } from "../components/perfil_videos";

@@ -33,8 +33,7 @@ const editProfileFormSchema = z.object({
     .string()
     .nonempty("O nome de usuário é obrigatório!")
     .min(6, "O username precisa de no mínimo 6 caracteres!"),
-  description: z.string(),
-  
+  description: z.string().optional(),
 });
 
 type editProfileFormData = z.infer<typeof editProfileFormSchema>;
@@ -53,30 +52,35 @@ export function EditProfileModal({
     resolver: zodResolver(editProfileFormSchema),
     defaultValues: {
       username: profileData.username, // Nome inicial
+      description: profileData.description || "", // Bio inicial
     },
   });
 
-  const [bio, setBio] = useState(profileData.description || "");
   const [fotoPerfil, setFotoPerfil] = useState(profileData.profile_picture);
 
   const editUser = async (data: editProfileFormData) => {
+    try {
+      const idUsuario = sessionStorage.getItem("user_id");
+      console.log("Dados enviados para edição: ", data);
 
-    
+      const response = await api.patch(`/users/${idUsuario}/`, {
+        ...data
+      });
 
-    const idUsuario = sessionStorage.getItem("user_id");
-    const response = await api.patch(`/users/${idUsuario}/`,data)
+      console.log("Resposta da API: ", response);
 
-    console.log(response)
-
-    // Atualizar os dados do perfil
-    setProfileData({
-      ...profileData, // Preservar os dados não alterados
-      username: data.username,
-      description: bio, // Atualizar a descrição com o valor do estado local
-      profile_picture: fotoPerfil, // Atualizar a foto de perfil
-    });
-    onClose();
-  }
+      // Atualizar os dados do perfil
+      setProfileData({
+        ...profileData, // Preservar os dados não alterados
+        username: data.username,
+        description: data.description || null, // Atualizar a bio
+        profile_picture: fotoPerfil, // Atualizar a foto de perfil
+      });
+      onClose();
+    } catch (error) {
+      console.error("Erro ao editar o usuário: ", error);
+    }
+  };
 
   return (
     <form className="flex flex-col" onSubmit={handleSubmit(editUser)}>
@@ -91,19 +95,26 @@ export function EditProfileModal({
               type="text"
               className="w-full px-3 py-2 border rounded outline-none"
               {...register("username")}
-              onBlur={(e) => setValue("username", e.target.value)} // Atualizar estado no blur
             />
-            {errors.username && (<span className="text-red-600 text-sm">{errors.username.message}</span>)}
+            {errors.username && (
+              <span className="text-red-600 text-sm">
+                {errors.username.message}
+              </span>
+            )}
           </div>
 
           {/* Bio */}
           <div className="mb-4">
             <label className="block text-gray-700">Bio</label>
             <textarea
-              value={bio}
-              onChange={(e) => setBio(e.target.value)}
               className="w-full px-3 py-2 border rounded outline-none"
+              {...register("description")} // Registro no formulário
             />
+            {errors.description && (
+              <span className="text-red-600 text-sm">
+                {errors.description.message}
+              </span>
+            )}
           </div>
 
           {/* Foto de Perfil */}
