@@ -44,7 +44,7 @@ const createUserFormSchema = z.object({
 
 
 const api = axios.create({
-  baseURL: 'https://sgm-backend-test.onrender.com/api/v1',
+  baseURL: 'http://54.209.14.48/api/v1', // Nova URL
 });
 
 type CreateUserFormData = z.infer<typeof createUserFormSchema>;

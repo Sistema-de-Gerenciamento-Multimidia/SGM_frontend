@@ -4,7 +4,7 @@ import { DashboardPage } from "./pages/dashboardpage";
 import { PerfilPage } from "./pages/perfilpage";
 import { PasswordRecuperation } from "./pages/password_recuperation";
 import { InicialPageRegister } from "./pages/inicialpageregister";
-
+// import { PasswordRedefinition } from "./pages/password_redefinition";
 
 const isAuthenticated = () => {
   return sessionStorage.getItem("token") !== null;
@@ -34,8 +34,12 @@ const router = createBrowserRouter([
   },
   {
     path: "/password_recuperation",
-    element: <PasswordRecuperation />
+    element: <PasswordRecuperation />,
   },
+  // {
+  //   path: "/password_redefinition/:token",
+  //   element: <PasswordRedefinition />,
+  // },
 ]);
 
 export function App() {
