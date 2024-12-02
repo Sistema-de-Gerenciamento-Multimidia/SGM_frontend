@@ -75,7 +75,7 @@ export function Modal_Password({ onClose }: ModalPasswordProps) {
             <label className="block text-gray-700">Senha Atual</label>
             <input
               type="password"
-              className="w-full px-3 py-2 border rounded outline-none"
+              className="w-full px-3 py-2 border rounded outline-none bg-gray-200"
               {...register("current_password")}
             />
             {errors.current_password && (
@@ -89,7 +89,7 @@ export function Modal_Password({ onClose }: ModalPasswordProps) {
             <label className="block text-gray-700">Nova Senha</label>
             <input
               type="password"
-              className="w-full px-3 py-2 border rounded outline-none"
+              className="w-full px-3 py-2 border rounded outline-none bg-gray-200"
               {...register("new_password")}
             />
             {errors.new_password && (
@@ -103,7 +103,7 @@ export function Modal_Password({ onClose }: ModalPasswordProps) {
             <label className="block text-gray-700">Confirmar Nova Senha</label>
             <input
               type="password"
-              className="w-full px-3 py-2 border rounded outline-none"
+              className="w-full px-3 py-2 border rounded outline-none bg-gray-200"
               {...register("confirm_new_password")}
             />
             {errors.confirm_new_password && (

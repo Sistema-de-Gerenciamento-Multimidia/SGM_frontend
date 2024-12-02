@@ -49,13 +49,18 @@ export function LoginCard() {
       const userData = userResponse.data;
       setUser(userData); // Atualize o contexto com os dados do usuário
   
+      // Salve os dados do usuário no sessionStorage
+      // sessionStorage.setItem('user', JSON.stringify(userData));
+  
       navigate('/dashboard');
+      toast.success('Seja bem-vindo ao Contentify!');
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       toast.error('Nome de Usuário e/ou senha inválidos!');
       console.error('Erro ao logar usuário:', error.response?.data || error.message);
     }
   };
+  
 
 
 

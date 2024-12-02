@@ -2,7 +2,7 @@ import { Header } from "../components/header"
 
 export function DashboardPage() {
   return (
-    <div className="flex flex-col h-screen bg-gray-100">
+    <div className="flex flex-col min-h-screen bg-primarylemon">
       <Header />
 
       
@@ -19,11 +19,11 @@ export function DashboardPage() {
           {[...Array(8)].map((_, index) => (
             <div
               key={index}
-              className="bg-white p-4 shadow rounded flex flex-col items-center"
+              className="bg-perfilcolor p-4 shadow rounded flex flex-col items-center"
             >
               <div className="h-32 w-full bg-gray-300 rounded mb-4"></div>
               <p className="text-gray-600 font-semibold">Arquivo {index + 1}</p>
-              <button className="mt-2 text-fulvouscolor text-sm underline">
+              <button className="mt-2 text-fulvoushover text-sm underline">
                 Visualizar
               </button>
             </div>

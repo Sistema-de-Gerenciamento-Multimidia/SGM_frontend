@@ -23,6 +23,8 @@ export default {
         fulvoushover: '#c76d0a',
         darkgreen: '#14342B',
         asparagus: '#60935D',
+        perfilcolor: '#B3B346',
+        headercolor: '#D4D2D2  ',
       }
     },
   },

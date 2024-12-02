@@ -1,17 +1,48 @@
 import { useEffect, useState, useRef } from "react";
 import { DotsHorizontalIcon } from "@radix-ui/react-icons";
-// import { toast } from "sonner";
+import { toast } from "sonner";
 import { EditProfileModal } from "../perfil_edit";
 import { Modal_Password } from "../modal_password";
-// import { useUser } from "../../userContext";  // Importando o hook para acessar o contexto
 
-export function CustomSelect() {
-  // const { setUser } = useUser();  // Pegando a função para atualizar os dados do usuário
+interface CustomSelectProps {
+  profileData: {
+    id: number | null;
+    email: string;
+    username: string;
+    name: string;
+    description: string | null;
+    date_joined: string;
+    date_of_birth: string | null;
+    profile_picture: string;
+  };
+  setProfileData: (updatedData: {
+    id: number | null;
+    email: string;
+    username: string;
+    name: string;
+    description: string | null;
+    date_joined: string;
+    date_of_birth: string | null;
+    profile_picture: string;
+  }) => void;
+}
+
+export function CustomSelect({
+  profileData,
+  setProfileData,
+}: CustomSelectProps) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
+  const handleSave = (updatedData: typeof profileData) => {
+    setProfileData(updatedData);
+    setIsEditModalOpen(false);
+    toast.success("Alterações salvas com sucesso!");
+  };
+
+  // Fechar dropdown ao clicar fora
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
@@ -32,7 +63,7 @@ export function CustomSelect() {
   return (
     <div className="relative inline-block" ref={dropdownRef}>
       <button
-        className="flex items-center justify-center p-2 rounded-full hover:bg-gray-200 focus:outline-none"
+        className="flex items-center justify-center p-2 rounded-full hover:bg-gray-300 focus:outline-none"
         onClick={() => setIsDropdownOpen((prev) => !prev)}
         aria-label="Options"
       >
@@ -42,7 +73,7 @@ export function CustomSelect() {
       {isDropdownOpen && (
         <div className="absolute right-0 mt-2 w-48 bg-gray-400 rounded shadow-lg p-4 z-10">
           <div
-            className="text-white hover:bg-fulvoushover cursor-pointer p-2 rounded flex justify-center"
+            className="text-gray-100 hover:bg-fulvoushover cursor-pointer p-2 rounded flex justify-center"
             onClick={() => {
               setIsDropdownOpen(false);
               setIsEditModalOpen(true);
@@ -51,7 +82,7 @@ export function CustomSelect() {
             Alterar Perfil
           </div>
           <div
-            className="text-white hover:bg-red-600 cursor-pointer p-2 rounded flex justify-center"
+            className="text-gray-100 hover:bg-red-600 cursor-pointer p-2 rounded flex justify-center"
             onClick={() => {
               setIsDropdownOpen(false);
               setIsPasswordModalOpen(true);
@@ -64,6 +95,8 @@ export function CustomSelect() {
 
       {isEditModalOpen && (
         <EditProfileModal
+          profileData={profileData}
+          setProfileData={handleSave}
           onClose={() => setIsEditModalOpen(false)}
         />
       )}
