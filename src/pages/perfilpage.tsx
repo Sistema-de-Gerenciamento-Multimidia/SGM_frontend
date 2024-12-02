@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useUser } from "../userContext"; // Importando o hook para acessar o contexto
 import { Galeria } from "../components/perfil_galeria";
 import { Fotos } from "../components/perfil_fotos";
@@ -7,45 +7,63 @@ import { Audio } from "../components/perfil_audio";
 import { Header } from "../components/header";
 import { EditProfileModal } from "../components/perfil_edit";
 import { CustomSelect } from "../components/ui/select";
-// import { toast } from "sonner";
+import { toast } from "sonner";
+import Logo from "../../public/robot_perfil.png";
 
 export function PerfilPage() {
-  const { user } = useUser(); // Pegando os dados do usuário e a função para atualizá-los
+  const { user, setUser, fetchUserData } = useUser(); // Pegando os dados do contexto
   const [activeTab, setActiveTab] = useState("Galeria");
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
-  // const handleSave = (updatedData: typeof user) => {
-  //   setUser(updatedData); // Atualizando os dados do usuário no contexto
-  //   setIsEditModalOpen(false);
-  //   toast.success("Alterações salvas com sucesso!");
-  // };
+  useEffect(() => {
+    if (!user.id) {
+      fetchUserData(); // Busca os dados do usuário se não estiverem no estado
+    }
+  }, [user.id, fetchUserData]);
+
+  const handleSave = (updatedData: typeof user) => {
+    setUser(updatedData); // Atualizando os dados do usuário no contexto
+    setIsEditModalOpen(false);
+    toast.success("Alterações salvas com sucesso!");
+  };
 
   return (
-    <div className="flex flex-col h-screen bg-gray-100">
+    <div className="flex flex-col min-h-screen bg-primarylemon">
       <Header />
 
       <main className="flex-grow p-6">
-        <div className="bg-white p-6 rounded shadow flex items-center space-x-6">
+        <div className="bg-perfilcolor p-6 rounded flex items-center space-x-6">
           {/* Foto de Perfil */}
           <div className="w-28 h-28 rounded-full overflow-hidden border border-gray-300">
             <img
-              src={user.profile_picture}
+              src={Logo}
               alt="Foto de Perfil"
               className="w-full h-full object-cover"
             />
           </div>
           {/* Informações do Perfil */}
-          <div className="w-full">
+          <div className="w-full space-y-2">
             <div className="flex justify-between">
-              <h2 className="text-3xl font-semibold">{user.username}</h2>
-              <CustomSelect />
+              <div className="flex flex-col md:flex-row items-baseline">
+                <h2 className="text-3xl font-semibold">{user.username}</h2>
+                <p className="text-gray-500 italic opacity-75 font-semibold text-sm">
+                  ({user.email})
+                </p>
+              </div>
+              <CustomSelect profileData={user} setProfileData={setUser} />
             </div>
             {/* Informações adicionais */}
-            <div className="mt-4">
-              <p className="text-gray-600"><strong>Nome Completo:</strong> {user.name}</p>
-              <p className="text-gray-600"><strong>Email:</strong> {user.email}</p>
-              <p className="text-gray-600"><strong>Data de Criação:</strong> {user.date_joined}</p>
-              <p className="mt-2 text-gray-600"><strong>Bio:</strong> {user.description}</p>
+            <div className="mt-2">
+              <p className="text-gray-600">
+                <strong>Nome:</strong> {user.name}
+              </p>
+              <p className="text-gray-600">
+                <strong>Criação da conta:</strong>{" "}
+                {new Date(user.date_joined).toLocaleDateString("pt-BR")}
+              </p>
+              <p className=" text-gray-600">
+                <strong>Bio:</strong> {user.description}
+              </p>
             </div>
           </div>
         </div>
@@ -69,7 +87,7 @@ export function PerfilPage() {
             ))}
           </ul>
           {/* Conteúdo */}
-          <div className="bg-white p-6 mt-4 shadow rounded">
+          <div className="bg-perfilcolor p-6 mt-4 shadow rounded">
             {activeTab === "Galeria" && <Galeria />}
             {activeTab === "Fotos" && <Fotos />}
             {activeTab === "Videos" && <Videos />}
@@ -80,6 +98,8 @@ export function PerfilPage() {
         {/* Modal de Edição de Perfil */}
         {isEditModalOpen && (
           <EditProfileModal
+            profileData={user} // Usando os dados do contexto
+            setProfileData={handleSave}
             onClose={() => setIsEditModalOpen(false)}
           />
         )}
