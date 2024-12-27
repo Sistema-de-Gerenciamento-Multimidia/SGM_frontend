@@ -8,7 +8,7 @@ import { useUser } from "../userContext"; // Importando o hook para acessar o co
 import { UserData } from "../dataUser/userData";
 // import { createUser } from "../dataUser/functionData";
 import { api } from "../api/token";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, Loader } from "lucide-react";
 import { useState } from "react";
 
 const loginUserFormSchema = z.object({
@@ -26,7 +26,7 @@ export function LoginCard() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<loginUserFormData>({
     resolver: zodResolver(loginUserFormSchema),
   });
@@ -62,10 +62,10 @@ export function LoginCard() {
       // sessionStorage.setItem('user', JSON.stringify(userData));
 
       navigate("/dashboard");
-      toast.success("Seja bem-vindo ao Contentify!");
+      toast.success("Seja bem-vindo ao Contentify!", { duration: 3000 });
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      toast.error("Nome de Usuário e/ou senha inválidos!");
+      toast.error("Nome de Usuário e/ou senha inválidos!", { duration: 3000 });
       console.error(
         "Erro ao logar usuário:",
         error.response?.data || error.message
@@ -73,8 +73,8 @@ export function LoginCard() {
     }
   };
 
-  const onSubmit = (data: loginUserFormData) => {
-    loginUser(data);
+  const onSubmit = async (data: loginUserFormData) => {
+    await loginUser(data);
   };
 
   return (
@@ -135,9 +135,10 @@ export function LoginCard() {
       </div>
       <button
         type="submit"
-        className="bg-fulvouscolor rounded font-semibold text-gray-100 h-10 hover:bg-fulvoushover px-6"
+        disabled={isSubmitting}
+        className="bg-fulvouscolor rounded font-semibold text-gray-100 h-10 hover:bg-fulvoushover px-6 disabled:bg-fulvoushover flex items-center justify-center"
       >
-        Entrar
+        {isSubmitting ? <Loader className="animate-spin" /> : 'Entrar'}
       </button>
     </form>
   );

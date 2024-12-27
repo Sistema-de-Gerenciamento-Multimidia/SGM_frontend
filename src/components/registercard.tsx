@@ -3,10 +3,10 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, Loader } from "lucide-react";
+import { api } from "../api/token";
 
 // Esquema de validação
 const createUserFormSchema = z
@@ -47,10 +47,6 @@ const createUserFormSchema = z
     path: ["confirm_password"], // Campo onde o erro será exibido
   });
 
-const api = axios.create({
-  baseURL:
-    "http://54.209.14.48/api/v1https://sgm-backend-test.onrender.com/api/v1",
-});
 
 type CreateUserFormData = z.infer<typeof createUserFormSchema>;
 
@@ -62,7 +58,7 @@ export function RegisterCard() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<CreateUserFormData>({
     resolver: zodResolver(createUserFormSchema),
   });
@@ -79,17 +75,15 @@ export function RegisterCard() {
       toast.success("Cadastro realizado com sucesso!");
       console.log("Resposta do servidor:", response.data);
     } catch (error: any) {
-      console.error(
-        "Erro ao cadastrar usuário:",
-        error.response?.data || error.message
-      );
+      console.error("Erro ao cadastrar usuário:",error.response?.data || error.message);
+      toast.error("Erro ao cadastrar usuário!");
       // setMessage("Erro ao cadastrar usuário.");
     }
   };
 
   // Função chamada ao enviar o formulário
-  const onSubmit = (data: CreateUserFormData) => {
-    registerUser(data);
+  const onSubmit = async(data: CreateUserFormData) => {
+    await registerUser(data);
   };
 
   return (
@@ -229,9 +223,11 @@ export function RegisterCard() {
 
         <button
           type="submit"
-          className="bg-fulvouscolor rounded font-semibold text-gray-100 h-10 hover:bg-fulvoushover px-6"
+          disabled={isSubmitting}
+          className="bg-fulvouscolor rounded font-semibold text-gray-100 h-10 hover:bg-fulvoushover px-6 disabled:bg-fulvoushover flex items-center justify-center"
         >
-          Cadastrar
+          {isSubmitting ? <Loader className="animate-spin" /> : 'Cadastrar'}
+          
         </button>
       </form>
 
