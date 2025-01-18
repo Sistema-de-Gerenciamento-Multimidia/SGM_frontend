@@ -2,12 +2,17 @@ import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { CloudUpload } from "lucide-react";
 
-export function InputFile() {
+interface InputFileProps {
+  onFileChange: (file: File | null) => void;
+}
+
+export function InputFile({ onFileChange }: InputFileProps) {
   const [fileName, setFileName] = useState<string | null>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
+    const file = event.target.files?.[0] || null;
     setFileName(file ? file.name : null);
+    onFileChange(file);
   };
 
   return (
@@ -17,12 +22,7 @@ export function InputFile() {
     >
       <CloudUpload size={30} />
       <span>{fileName || "Upload do Arquivo"}</span>
-      <Input
-        id="file"
-        type="file"
-        className="hidden"
-        onChange={handleFileChange}
-      />
+      <Input id="file" type="file" className="hidden" onChange={handleFileChange} />
     </label>
   );
 }
