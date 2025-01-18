@@ -1,5 +1,6 @@
 import { Header } from "../components/header"
 import  { HeroVideoDialogDemoTopInBottomOut }  from "../components/capa_video";
+import { DialogDemo } from "@/components/button_upload";
 
 export function DashboardPage() {
   return (
@@ -10,9 +11,7 @@ export function DashboardPage() {
       <main className="flex-grow p-6">
         
         <div className="mb-6">
-          <button className="bg-fulvouscolor text-white px-4 py-2 rounded shadow hover:bg-fulvoushover">
-            + Adicionar novo arquivo multimídia
-          </button>
+          <DialogDemo />
         </div>
 
         
