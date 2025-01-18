@@ -65,7 +65,7 @@ export function LoginCard() {
       toast.success("Seja bem-vindo ao Contentify!", { duration: 3000 });
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
-      toast.error("Nome de Usuário e/ou senha inválidos!", { duration: 3000 });
+      toast.error("Nome de Usuário e/ou senha inválidos!", { duration: 3000});
       console.error(
         "Erro ao logar usuário:",
         error.response?.data || error.message

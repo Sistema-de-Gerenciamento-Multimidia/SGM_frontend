@@ -1,4 +1,5 @@
 import { Header } from "../components/header"
+import  { HeroVideoDialogDemoTopInBottomOut }  from "../components/capa_video";
 
 export function DashboardPage() {
   return (
@@ -19,13 +20,10 @@ export function DashboardPage() {
           {[...Array(8)].map((_, index) => (
             <div
               key={index}
-              className="bg-perfilcolor p-4 shadow rounded flex flex-col items-center"
+              className="bg-perfilcolor p-4 shadow rounded flex flex-col items-center gap-4"
             >
-              <div className="h-32 w-full bg-gray-300 rounded mb-4"></div>
+              <HeroVideoDialogDemoTopInBottomOut />
               <p className="text-gray-600 font-semibold">Arquivo {index + 1}</p>
-              <button className="mt-2 text-fulvoushover text-sm underline">
-                Visualizar
-              </button>
             </div>
           ))}
         </div>
