@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import {  useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
@@ -12,6 +12,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { InputFile } from "./input_file";
+import { useState } from "react";
 
 // Esquema de validação com Zod
 const schema = z.object({
@@ -37,17 +38,22 @@ export function DialogDemo() {
   const {
     handleSubmit,
     setValue,
+    reset,
     formState: { errors },
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
   });
 
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
   const onSubmit = (data: FormValues) => {
     console.log("Arquivo enviado:", data.file);
+    reset();
+    setIsDialogOpen(false); // Fecha o modal após o envio
   };
 
   return (
-    <Dialog>
+    <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <DialogTrigger asChild>
         <Button className="bg-fulvouscolor text-white px-4 py-2 rounded shadow hover:bg-fulvoushover">
           + Adicionar arquivo multimídia
