@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { Play, XIcon } from "lucide-react";
+import ReactH5AudioPlayer from "react-h5-audio-player"; 
+import "react-h5-audio-player/lib/styles.css";
 
 import { cn } from "@/lib/utils";
 
@@ -127,10 +129,14 @@ export default function HeroAudioDialog({
                 <XIcon className="size-5" />
               </motion.button>
               <div className="relative isolate z-[1]">
-                <audio controls autoPlay className="w-full">
-                  <source src={audioSrc} type="audio/mpeg" />
-                  Seu navegador não suporta o elemento de áudio.
-                </audio>
+              <ReactH5AudioPlayer
+                src={audioSrc}
+                // autoPlay
+                showJumpControls={false}
+                customAdditionalControls={[]}
+                // customVolumeControls={["VolumeBar"]}
+                className="w-full"
+              />
               </div>
             </motion.div>
           </motion.div>
