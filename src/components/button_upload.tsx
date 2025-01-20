@@ -24,9 +24,9 @@ const schema = z.object({
     //   message: "O arquivo deve ter no máximo 5MB.",
     // })
     .refine(
-      (file) => ["image/jpeg", "image/png", "video/mp4"].includes(file?.type),
+      (file) => ["image/jpeg", "image/png", "video/mp4", "audio/mpeg"].includes(file?.type),
       {
-        message: "Apenas arquivos JPEG, PNG ou MP4 são permitidos.",
+        message: "Apenas arquivos JPEG, PNG, MP3 ou MP4 são permitidos.",
       }
     ),
 });
