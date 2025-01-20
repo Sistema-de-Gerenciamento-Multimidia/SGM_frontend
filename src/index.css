@@ -74,42 +74,35 @@
   }
 }
 
-/* Estilizar o container principal */
 .rhap_container {
-  @apply bg-gray-800 text-white rounded-lg shadow-md; /* Fundo escuro com texto branco */
+  background-color: #1f2937 !important; /* Cor de fundo */
 }
-
-/* Botões de controle (play, pause, etc.) */
-.rhap_main-controls-button {
-  @apply text-green-500 hover:text-green-600; /* Verde no estado normal e verde mais escuro no hover */
+.rhap_button-clear {
+  color: #fff !important; /* Cor dos botões */
 }
-
-/* Barra de progresso */
-.rhap_progress-bar {
-  @apply bg-gray-700; /* Cor da barra de fundo */
+.rhap_button-clear:hover {
+  color: #1DB954 !important;
+  transition: color 0.3s ease-in-out; /* Cor dos botões */
 }
-
-/* Indicador de progresso */
-.rhap_progress-indicator {
-  @apply bg-green-500; /* Indicador verde na barra de progresso */
-}
-
-/* Controles de volume */
-.rhap_volume-controls button {
-  @apply text-yellow-500 hover:text-yellow-600; /* Ícones de volume com cores personalizadas */
-}
-
-/* Barra de volume */
-.rhap_volume-bar {
-  @apply bg-gray-600; /* Cor do fundo da barra de volume */
-}
-
-.rhap_volume-indicator {
-  @apply bg-yellow-500; /* Indicador de volume */
-}
-
-/* Texto (duração do áudio e tempo atual) */
 .rhap_time {
-  @apply text-gray-400; /* Texto com tom acinzentado */
+  color: #C0C0C0 !important; /* Cor do tempo */
 }
+.rhap_progress-filled {
+  background-color: #1DB954 !important; /* Altere para a cor desejada */
+}
+.rhap_progress-indicator {
+  background-color: white !important; /* Altere para branco */      /* Ajuste o tamanho (opcional) */
+}
+.rhap_volume-fill {
+  background-color: #1DB954 !important; /* Cor da barra de progresso do volume */
+}
+.rhap_volume-indicator {
+  background-color: white !important; /* Cor do indicador do volume */
+}
+..rhap_volume-bar {
+  background-color: #DDDDDD !important; /* Cor da barra de volume */
+}
+
+
+
 

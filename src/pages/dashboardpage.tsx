@@ -27,6 +27,7 @@ export function DashboardPage() {
                 src="/audios/musicateste.mp3" 
                 autoPlay={false} 
                 loop={false}
+                volume={0.5}
               />
               <p className="text-gray-600 font-semibold">Arquivo {index + 1}</p>
             </div>
