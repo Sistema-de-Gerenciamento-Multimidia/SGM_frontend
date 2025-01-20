@@ -68,7 +68,7 @@ export function DialogDemo() {
   return (
     <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <DialogTrigger asChild>
-        <Button className="bg-fulvouscolor text-white px-4 py-2 rounded shadow hover:bg-fulvoushover">
+        <Button className="bg-fulvouscolor text-white px-4 py-2 rounded shadow hover:bg-fulvoushover transition-all">
           + Adicionar arquivo multimídia
         </Button>
       </DialogTrigger>

@@ -6,7 +6,7 @@ import { Videos } from "../components/perfil_videos";
 import { Audio } from "../components/perfil_audio";
 import { Header } from "../components/header";
 import { EditProfileModal } from "../components/perfil_edit";
-import { CustomSelect } from "../components/ui/select";
+import { CustomSelect } from "../components/ui/select_radix";
 import { toast } from "sonner";
 import Logo from "../../public/robot_perfil.png";
 

@@ -4,6 +4,7 @@ import { DialogDemo } from "@/components/button_upload";
 import AudioPlayerComponent from "../components/audio_player_component";
 import { FileInfomations } from "@/components/file_infomations";
 import { Pencil, Trash2 } from "lucide-react";
+import { SelectDemo } from "@/components/select_file_filter";
 
 export function DashboardPage() {
   return (
@@ -11,8 +12,9 @@ export function DashboardPage() {
       <Header />
 
       <main className="flex-grow p-6">
-        <div className="mb-6">
+        <div className="mb-6 flex items-center justify-between">
           <DialogDemo />
+          <SelectDemo />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
