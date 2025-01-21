@@ -3,7 +3,8 @@
 export function FileInfomations() {
   return (
     <>
-      <div className="max-w-full overflow-hidden">
+      <div className="max-w-full overflow-hidden flex flex-col gap-2">
+        <p className="font-semibold text-gray-500 italic opacity-75">Gênero: </p>
         <p className="break-words overflow-wrap">
           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Optio
           dolorem magnam fuga nostrum quaerat at tempora. Ea eius repellendus
