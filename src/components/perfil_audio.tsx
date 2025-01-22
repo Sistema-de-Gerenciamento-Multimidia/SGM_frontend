@@ -1,6 +1,4 @@
-import AudioPlayerComponent from "./audio_player_component"; // Ajuste o caminho conforme necessário
-import { Pencil } from "lucide-react";
-import { AlertDialogDemo } from "@/components/alert_dialog";
+import AudioPlayerComponent from "./audio_player_component";
 import { FileInfomations } from "@/components/file_infomations";
 
 export function Audio() {
