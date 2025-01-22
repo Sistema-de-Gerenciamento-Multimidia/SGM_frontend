@@ -6,7 +6,7 @@ const getToken = () => {
 };
 
 const api = axios.create({
-  baseURL: 'http://54.209.14.48/api/v1', // Nova URL
+  baseURL: 'http://3.235.163.27/api/v1',
 });
 
 api.interceptors.request.use(

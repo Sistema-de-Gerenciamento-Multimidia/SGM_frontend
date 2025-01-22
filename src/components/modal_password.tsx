@@ -3,7 +3,9 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
-import { api } from '../api/token';
+import { api } from "../api/token";
+import { Eye, EyeOff } from "lucide-react";
+import { useState } from "react";
 
 const modalPasswordFormSchema = z
   .object({
@@ -31,8 +33,6 @@ const modalPasswordFormSchema = z
     path: ["confirm_new_password"],
   });
 
-  
-
 type ModalPasswordFormData = z.infer<typeof modalPasswordFormSchema>;
 
 interface ModalPasswordProps {
@@ -40,6 +40,10 @@ interface ModalPasswordProps {
 }
 
 export function Modal_Password({ onClose }: ModalPasswordProps) {
+  const [isCurrentPasswordVisible, setCurrentPasswordVisible] = useState(false);
+  const [isNewPasswordVisible, setNewPasswordVisible] = useState(false);
+  const [isConfirmNewPasswordVisible, setConfirmNewPasswordVisible] =
+    useState(false);
   const {
     register,
     handleSubmit,
@@ -52,16 +56,19 @@ export function Modal_Password({ onClose }: ModalPasswordProps) {
 
   const editPassword = async (data: ModalPasswordFormData) => {
     const idUsuario = sessionStorage.getItem("user_id");
-  
+
     try {
       const response = await api.patch(`/change-password/${idUsuario}/`, data); // Use backticks
       navigate("/");
-      toast.success("Senha alterada com sucesso.")
+      toast.success("Senha alterada com sucesso.");
       console.log("Resposta do servidor:", response.data);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (error: any) {
       toast.error("Erro ao alterar senha.");
-      console.error("Erro ao alterar senha.", error.response?.data || error.message);
+      console.error(
+        "Erro ao alterar senha.",
+        error.response?.data || error.message
+      );
     }
   };
 
@@ -73,11 +80,27 @@ export function Modal_Password({ onClose }: ModalPasswordProps) {
         <form className="flex flex-col" onSubmit={handleSubmit(editPassword)}>
           <div className="mb-4">
             <label className="block text-gray-700">Senha Atual</label>
-            <input
-              type="password"
-              className="w-full px-3 py-2 border rounded outline-none bg-gray-200"
-              {...register("current_password")}
-            />
+            <div className="relative">
+              <input
+                type={isCurrentPasswordVisible ? "text" : "password"}
+                className="w-full px-3 py-2 border rounded outline-none bg-gray-200"
+                {...register("current_password")}
+              />
+              <button
+                type="button"
+                className="absolute top-1/2 right-3 transform -translate-y-1/2"
+                onClick={() =>
+                  setCurrentPasswordVisible(!isCurrentPasswordVisible)
+                }
+              >
+                {isCurrentPasswordVisible ? (
+                  <EyeOff className="text-gray-600 cursor-pointer" />
+                ) : (
+                  <Eye className="text-gray-600 cursor-pointer" />
+                )}
+              </button>
+            </div>
+
             {errors.current_password && (
               <span className="text-red-600 text-sm">
                 {errors.current_password.message}
@@ -87,11 +110,24 @@ export function Modal_Password({ onClose }: ModalPasswordProps) {
 
           <div className="mb-4">
             <label className="block text-gray-700">Nova Senha</label>
-            <input
-              type="password"
-              className="w-full px-3 py-2 border rounded outline-none bg-gray-200"
-              {...register("new_password")}
-            />
+            <div className="relative">
+              <input
+                type={isNewPasswordVisible ? "text" : "password"}
+                className="w-full px-3 py-2 border rounded outline-none bg-gray-200"
+                {...register("new_password")}
+              />
+              <button
+                type="button"
+                className="absolute top-1/2 right-3 transform -translate-y-1/2"
+                onClick={() => setNewPasswordVisible(!isNewPasswordVisible)}
+              >
+                {isNewPasswordVisible ? (
+                  <EyeOff className="text-gray-600 cursor-pointer" />
+                ) : (
+                  <Eye className="text-gray-600 cursor-pointer" />
+                )}
+              </button>
+            </div>
             {errors.new_password && (
               <span className="text-red-600 text-sm">
                 {errors.new_password.message}
@@ -101,11 +137,24 @@ export function Modal_Password({ onClose }: ModalPasswordProps) {
 
           <div className="mb-4">
             <label className="block text-gray-700">Confirmar Nova Senha</label>
-            <input
-              type="password"
-              className="w-full px-3 py-2 border rounded outline-none bg-gray-200"
-              {...register("confirm_new_password")}
-            />
+            <div className="relative">
+              <input
+                type={isConfirmNewPasswordVisible ? "text" : "password"}
+                className="w-full px-3 py-2 border rounded outline-none bg-gray-200"
+                {...register("confirm_new_password")}
+              />
+              <button
+                type="button"
+                className="absolute top-1/2 right-3 transform -translate-y-1/2"
+                onClick={() => setConfirmNewPasswordVisible(!isConfirmNewPasswordVisible)}
+              >
+                {isConfirmNewPasswordVisible ? (
+                  <EyeOff className="text-gray-600 cursor-pointer" />
+                ) : (
+                  <Eye className="text-gray-600 cursor-pointer" />
+                )}
+              </button>
+            </div>
             {errors.confirm_new_password && (
               <span className="text-red-600 text-sm">
                 {errors.confirm_new_password.message}

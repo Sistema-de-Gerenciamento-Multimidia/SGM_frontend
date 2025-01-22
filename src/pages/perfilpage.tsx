@@ -6,7 +6,7 @@ import { Videos } from "../components/perfil_videos";
 import { Audio } from "../components/perfil_audio";
 import { Header } from "../components/header";
 import { EditProfileModal } from "../components/perfil_edit";
-import { CustomSelect } from "../components/ui/select";
+import { CustomSelect } from "../components/ui/select_radix";
 import { toast } from "sonner";
 import Logo from "../../public/robot_perfil.png";
 
@@ -77,7 +77,7 @@ export function PerfilPage() {
                   className={`inline-block py-2 px-4 font-semibold transition-all duration-200 ${
                     activeTab === tab
                       ? "text-fulvouscolor border-b-4 border-fulvouscolor text-lg"
-                      : "text-gray-500 hover:text-fulvouscolor"
+                      : "text-gray-500 hover:text-fulvouscolor" 
                   }`}
                   onClick={() => setActiveTab(tab)}
                 >
@@ -87,7 +87,7 @@ export function PerfilPage() {
             ))}
           </ul>
           {/* Conteúdo */}
-          <div className="bg-perfilcolor p-6 mt-4 shadow rounded">
+          <div className="bg-primarylemon p-6 mt-4 shadow-both rounded">
             {activeTab === "Galeria" && <Galeria />}
             {activeTab === "Fotos" && <Fotos />}
             {activeTab === "Videos" && <Videos />}
@@ -98,7 +98,7 @@ export function PerfilPage() {
         {/* Modal de Edição de Perfil */}
         {isEditModalOpen && (
           <EditProfileModal
-            profileData={user} // Usando os dados do contexto
+            profileData={user}
             setProfileData={handleSave}
             onClose={() => setIsEditModalOpen(false)}
           />

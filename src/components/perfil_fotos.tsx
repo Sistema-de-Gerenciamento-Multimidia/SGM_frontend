@@ -1,12 +1,21 @@
+import {DialogImageDemo}   from "./image_component";
+import { FileInfomations } from "@/components/file_infomations";
+
+
 export function Fotos() {
     return (
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {[...Array(5)].map((_, index) => (
-          <div key={index} className="bg-blue-200 h-40 rounded flex items-center justify-center">
-            <p>Foto {index + 1}</p>
-          </div>
-        ))}
-      </div>
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      {[...Array(6)].map((_, index) => (
+        <div
+          key={index}
+          className="bg-perfilcolor p-4 rounded  flex flex-col items-center gap-4 shadow-both"
+        >
+          <DialogImageDemo />
+          
+          <FileInfomations />
+        </div>
+      ))}
+    </div>
     );
   }
   

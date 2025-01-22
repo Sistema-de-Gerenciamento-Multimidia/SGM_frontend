@@ -19,7 +19,7 @@ interface EditProfileModalProps {
     id: number | null;
     email: string;
     username: string;
-    name: string;
+    name: string; 
     description: string | null;
     date_joined: string;
     date_of_birth: string | null;
@@ -83,8 +83,8 @@ export function EditProfileModal({
 
   return (
     <form className="flex flex-col" onSubmit={handleSubmit(editUser)}>
-      <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-        <div className="bg-primarylemon p-6 rounded shadow w-96">
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 " style={{ overflow: 'hidden' }}>
+        <div className="bg-primarylemon p-6 rounded shadow w-96 relative">
           <h2 className="text-xl font-semibold mb-4">Editar Perfil</h2>
 
           {/* Nome */}
