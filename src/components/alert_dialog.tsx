@@ -16,7 +16,7 @@ export function AlertDialogDemo() {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Trash2 size={20} className="text-gray-600 hover:text-red-600" />
+        <Trash2 size={20} className="text-gray-600 hover:text-red-600 transition-all" />
       </AlertDialogTrigger>
       <AlertDialogContent className="bg-primarylemon">
         <AlertDialogHeader>

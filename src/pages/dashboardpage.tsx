@@ -1,11 +1,9 @@
 import { Header } from "../components/header";
-import  { HeroVideoDialogDemoTopInBottomOut }  from "../components/capa_video";
+// import  { HeroVideoDialogDemoTopInBottomOut }  from "../components/capa_video";
 import { DialogDemo } from "@/components/button_upload";
-// import AudioPlayerComponent from "../components/audio_player_component";
+import AudioPlayerComponent from "../components/audio_player_component";
 import { FileInfomations } from "@/components/file_infomations";
-import { Pencil } from "lucide-react";
 import { SelectDemo } from "@/components/select_file_filter";
-import { AlertDialogDemo } from "@/components/alert_dialog";
 // import { DialogImageDemo } from "@/components/image_component";
 
 export function DashboardPage() {
@@ -26,23 +24,13 @@ export function DashboardPage() {
               className="bg-perfilcolor p-4 shadow rounded flex flex-col items-center gap-4"
             >
               {/* <DialogImageDemo /> */}
-              <HeroVideoDialogDemoTopInBottomOut />
-              {/* <AudioPlayerComponent
+              {/* <HeroVideoDialogDemoTopInBottomOut /> */}
+              <AudioPlayerComponent
                 src="/audios/musicateste.mp3"
                 autoPlay={false}
                 loop={false}
                 volume={0.5}
-              /> */}
-              <div className="w-full flex justify-between px-2">
-                <button>
-                  <Pencil size={20} className="text-gray-600 hover:text-gray-800" />
-                </button>
-                <p className="text-gray-600 font-semibold">Arquivo {index + 1}</p>
-                <button>
-                  <AlertDialogDemo />
-                </button>
-              </div>
-              <hr className="w-full border-gray-200" />
+              />
               <FileInfomations />
             </div>
           ))}
