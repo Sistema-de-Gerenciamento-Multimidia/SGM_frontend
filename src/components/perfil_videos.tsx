@@ -6,7 +6,7 @@ import { FileInfomations } from "@/components/file_infomations";
 export function Videos() {
   return (
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-      {[...Array(8)].map((_, index) => (
+      {[...Array(5)].map((_, index) => (
         <div
           key={index}
           className="bg-perfilcolor p-4 rounded flex flex-col items-center gap-4 "
