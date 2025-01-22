@@ -33,7 +33,15 @@ const schema = z.object({
 // Tipagem do formulário
 type FormValues = z.infer<typeof schema>;
 
-export function DialogEditDemo() {
+interface DialogEditDemoProps {
+  fileData: {
+    name: string;
+    description: string;
+    tags: string[];
+  };
+}
+
+export function DialogEditDemo({ fileData }: DialogEditDemoProps) {
   const {
     register,
     handleSubmit,
@@ -41,6 +49,11 @@ export function DialogEditDemo() {
     formState: { errors },
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
+    defaultValues: {
+      name: fileData.name,
+      description: fileData.description,
+      tags: fileData.tags.join(", "), // Formatação das tags para um campo de texto
+    },
   });
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);

@@ -4,8 +4,6 @@ import { DialogDemo } from "@/components/button_upload";
 import AudioPlayerComponent from "../components/audio_player_component";
 import { FileInfomations } from "@/components/file_infomations";
 import { SelectDemo } from "@/components/select_file_filter";
-import { AlertDialogDemo } from "@/components/alert_dialog";
-import { DialogEditDemo } from "@/components/edit_file_informations";
 // import { DialogImageDemo } from "@/components/image_component";
 
 export function DashboardPage() {
@@ -33,16 +31,6 @@ export function DashboardPage() {
                 loop={false}
                 volume={0.5}
               />
-              <div className="w-full flex justify-between px-2">
-                <button>
-                  <DialogEditDemo />
-                </button>
-                <p className="text-gray-600 font-semibold">Arquivo {index + 1}</p>
-                <button>
-                  <AlertDialogDemo />
-                </button>
-              </div>
-              <hr className="w-full border-gray-200" />
               <FileInfomations />
             </div>
           ))}
