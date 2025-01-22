@@ -24,7 +24,7 @@ export function FileInfomations() {
       <hr className="w-full border-gray-200" />
       <div className="max-w-full overflow-hidden flex flex-col gap-2">
         <p className="font-semibold text-gray-500 italic opacity-75">
-          Gênero:{" "}
+          Gênero:{" Natureza "}
         </p>
         <p className="break-words overflow-wrap">{fileData.description}</p>
       </div>

@@ -1,7 +1,7 @@
 import { Header } from "../components/header";
-// import  { HeroVideoDialogDemoTopInBottomOut }  from "../components/capa_video";
+import  { HeroVideoDialogDemoTopInBottomOut }  from "../components/capa_video";
 import { DialogDemo } from "@/components/button_upload";
-import AudioPlayerComponent from "../components/audio_player_component";
+// import AudioPlayerComponent from "../components/audio_player_component";
 import { FileInfomations } from "@/components/file_infomations";
 import { SelectDemo } from "@/components/select_file_filter";
 // import { DialogImageDemo } from "@/components/image_component";
@@ -24,13 +24,13 @@ export function DashboardPage() {
               className="bg-perfilcolor p-4 shadow rounded flex flex-col items-center gap-4"
             >
               {/* <DialogImageDemo /> */}
-              {/* <HeroVideoDialogDemoTopInBottomOut /> */}
-              <AudioPlayerComponent
+              <HeroVideoDialogDemoTopInBottomOut />
+              {/* <AudioPlayerComponent
                 src="/audios/musicateste.mp3"
                 autoPlay={false}
                 loop={false}
                 volume={0.5}
-              />
+              /> */}
               <FileInfomations />
             </div>
           ))}
