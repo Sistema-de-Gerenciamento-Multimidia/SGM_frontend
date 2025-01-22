@@ -1,7 +1,7 @@
-import {HeroVideoDialogDemoTopInBottomOut} from "./capa_video"; // Ajuste o caminho conforme necessário
-import { Pencil } from "lucide-react";
-import { AlertDialogDemo } from "@/components/alert_dialog";
+import  { HeroVideoDialogDemoTopInBottomOut }  from "../components/capa_video";
+// import AudioPlayerComponent from "../components/audio_player_component";
 import { FileInfomations } from "@/components/file_infomations";
+// import { DialogImageDemo } from "@/components/image_component";
 
 export function Galeria() {
   return (
@@ -11,18 +11,14 @@ export function Galeria() {
           key={index}
           className="bg-perfilcolor p-4 rounded flex flex-col items-center gap-4 shadow-both"
         >
+          {/* <DialogImageDemo /> */}
           <HeroVideoDialogDemoTopInBottomOut />
-          <div className="w-full flex justify-between px-2">
-            <button>
-              <Pencil size={20} className="text-gray-600 hover:text-gray-800" />
-            </button>
-            <p className="text-gray-600 font-semibold">Vídeo {index + 1}</p>
-            <button>
-              <AlertDialogDemo />
-            </button>
-          </div>
-
-          <hr className="w-full border-gray-200" />
+          {/* <AudioPlayerComponent
+            src="/audios/musicateste.mp3"
+            autoPlay={false}
+            loop={false}
+            volume={0.5}
+          /> */}
           <FileInfomations />
         </div>
       ))}
