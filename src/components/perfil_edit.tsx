@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { api } from "../api/token";
+import { Loader } from "lucide-react";
 
 interface EditProfileModalProps {
   profileData: {
@@ -46,7 +47,7 @@ export function EditProfileModal({
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<editProfileFormData>({
     resolver: zodResolver(editProfileFormSchema),
     defaultValues: {
@@ -138,9 +139,10 @@ export function EditProfileModal({
             </button>
             <button
               type="submit"
+              disabled={isSubmitting}
               className="px-4 py-2 bg-fulvouscolor text-white rounded hover:bg-fulvoushover"
             >
-              Salvar
+              {isSubmitting ? <Loader className="animate-spin" /> : 'Salvar'}
             </button>
           </div>
         </div>

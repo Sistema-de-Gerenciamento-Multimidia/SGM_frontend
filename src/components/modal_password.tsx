@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { api } from "../api/token";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, Loader } from "lucide-react";
 import { useState } from "react";
 
 const modalPasswordFormSchema = z
@@ -47,7 +47,7 @@ export function Modal_Password({ onClose }: ModalPasswordProps) {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<ModalPasswordFormData>({
     resolver: zodResolver(modalPasswordFormSchema),
   });
@@ -83,6 +83,7 @@ export function Modal_Password({ onClose }: ModalPasswordProps) {
             <div className="relative">
               <input
                 type={isCurrentPasswordVisible ? "text" : "password"}
+                placeholder="Digite sua senha atual"
                 className="w-full px-3 py-2 border rounded outline-none bg-gray-200"
                 {...register("current_password")}
               />
@@ -113,6 +114,7 @@ export function Modal_Password({ onClose }: ModalPasswordProps) {
             <div className="relative">
               <input
                 type={isNewPasswordVisible ? "text" : "password"}
+                placeholder="Digite sua nova senha"
                 className="w-full px-3 py-2 border rounded outline-none bg-gray-200"
                 {...register("new_password")}
               />
@@ -140,6 +142,7 @@ export function Modal_Password({ onClose }: ModalPasswordProps) {
             <div className="relative">
               <input
                 type={isConfirmNewPasswordVisible ? "text" : "password"}
+                placeholder="Confirme sua nova senha"
                 className="w-full px-3 py-2 border rounded outline-none bg-gray-200"
                 {...register("confirm_new_password")}
               />
@@ -172,9 +175,10 @@ export function Modal_Password({ onClose }: ModalPasswordProps) {
             </button>
             <button
               type="submit"
+              disabled={isSubmitting}
               className="px-4 py-2 bg-fulvouscolor text-white rounded hover:bg-fulvoushover"
             >
-              Salvar
+              {isSubmitting ? <Loader className="animate-spin" /> : 'Salvar'}
             </button>
           </div>
         </form>
