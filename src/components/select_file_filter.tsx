@@ -7,12 +7,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Filter } from "lucide-react";
 
 export function SelectDemo() {
   return (
     <Select>
-      <SelectTrigger className="w-[180px] bg-fulvouscolor text-white hover:bg-fulvoushover transition-all border-none focus:ring-2 focus:ring-offset-2 focus:ring-fulvoushover">
-        <SelectValue placeholder="Filtro de arquivos" />
+      <SelectTrigger className="w-[150px] bg-fulvouscolor gap-2 text-white hover:bg-fulvoushover transition-all border-none focus:ring-2 focus:ring-offset-2 focus:ring-fulvoushover flex items-center justify-center">
+        <Filter size={20} />
+        <SelectValue placeholder="Filtro" />
       </SelectTrigger>
       <SelectContent className="bg-primarylemon">
         <SelectGroup>

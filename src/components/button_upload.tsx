@@ -15,6 +15,7 @@ import { InputFile } from "./input_file";
 import { useState, useEffect } from "react";
 import { Label } from "./ui/label";
 import { api } from "../api/token"; // Importação da instância Axios configurada
+import { Upload } from "lucide-react";
 
 // Esquema de validação com Zod
 const schema = z
@@ -25,11 +26,16 @@ const schema = z
       })
       .refine(
         (file) =>
-          ["image/jpeg", "image/png", "video/mp4", "audio/mpeg", "audio/mp3"].includes(
-            file?.type
-          ),
+          [
+            "image/jpeg",
+            "image/png",
+            "video/mp4",
+            "audio/mpeg",
+            "audio/mp3",
+          ].includes(file?.type),
         {
-          message: "Apenas arquivos JPEG, PNG, MP4, MP3 ou MPEG são permitidos.",
+          message:
+            "Apenas arquivos JPEG, PNG, MP4, MP3 ou MPEG são permitidos.",
         }
       ),
     description: z.string().min(1, { message: "A descrição é obrigatória." }),
@@ -45,7 +51,9 @@ const schema = z
     genre: z.string().optional(), // Gênero começa como opcional
   })
   .superRefine((data, ctx) => {
-    const isAudioOrVideo = ["video/mp4", "audio/mpeg", "audio/mp3"].includes(data.file?.type);
+    const isAudioOrVideo = ["video/mp4", "audio/mpeg", "audio/mp3"].includes(
+      data.file?.type
+    );
     if (isAudioOrVideo && (!data.genre || !data.genre.trim())) {
       ctx.addIssue({
         code: "custom",
@@ -133,8 +141,14 @@ export function DialogDemo() {
   return (
     <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <DialogTrigger asChild>
-        <Button className="bg-fulvouscolor text-white px-4 py-2 rounded shadow hover:bg-fulvoushover transition-all">
-          + Adicionar arquivo multimídia
+        <Button className="bg-fulvouscolor text-white px-4 py-2 rounded shadow hover:bg-fulvoushover transition-all flex items-center gap-2">
+          <span className="hidden sm:inline-flex items-center gap-2">
+            <Upload size={20} />
+            Adicionar arquivo multimídia
+          </span>
+          <span className="sm:hidden">
+            <Upload size={20} />
+          </span>
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px] bg-primarylemon">
@@ -197,7 +211,9 @@ export function DialogDemo() {
                 type="text"
                 {...register("genre")}
                 className={`w-full px-3 py-2 border rounded outline-none bg-gray-200 ${
-                  isGenreEnabled ? "bg-gray-200" : "bg-gray-300 cursor-not-allowed"
+                  isGenreEnabled
+                    ? "bg-gray-200"
+                    : "bg-gray-300 cursor-not-allowed"
                 }`}
                 placeholder="Ex: Comédia, Rock, etc."
                 disabled={!isGenreEnabled}

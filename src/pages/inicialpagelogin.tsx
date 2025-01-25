@@ -5,10 +5,11 @@ export function InicialPageLogin() {
   
   return (
     <div className="flex w-full h-screen bg-primarylemon">
-      <div className="w-[60%] flex items-center justify-center">
+      <div className="hidden  md:w-[60%] md:flex items-center justify-center">
         <img className="w-full h-full object-cover" src={Logo} alt="capa" />
       </div>
-      <div className="w-[40%] text-white flex items-center justify-center">
+      <div className="w-full flex flex-col gap-10 items-center justify-center md:w-[40%] text-white sm:flex sm:items-center sm:justify-center sm:flex-col sm:gap-10">
+        <p className="text-fulvouscolor font-bold text-5xl">Contentify</p>
         <div className="shadow-shape rounded-md w-[60%] h-auto bg-slate-200 p-6 flex flex-col items-center space-y-4">
           {/* Cabeçalho do Card */}
           <div className="flex flex-col items-center space-y-1">
