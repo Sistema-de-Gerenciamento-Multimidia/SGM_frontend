@@ -45,8 +45,8 @@ export function PerfilPage() {
           <div className="w-full space-y-2">
             <div className="flex justify-between">
               <div className="flex flex-col md:flex-row items-baseline">
-                <h2 className="text-3xl font-semibold">{user.username}</h2>
-                <p className="text-gray-500 italic opacity-75 font-semibold text-sm">
+                <h2 className="text-xl font-bold sm:text-3xl sm:font-semibold">{user.username}</h2>
+                <p className="text-gray-500 text-xs sm:text-gray-500 italic opacity-75 font-semibold sm:text-sm">
                   ({user.email})
                 </p>
               </div>
@@ -54,14 +54,14 @@ export function PerfilPage() {
             </div>
             {/* Informações adicionais */}
             <div className="mt-2">
-              <p className="text-gray-600">
+              <p className="text-xs text-gray-600 sm:text-lg">
                 <strong>Nome:</strong> {user.name}
               </p>
-              <p className="text-gray-600">
+              <p className="text-gray-600 text-xs sm:text-lg">
                 <strong>Criação da conta:</strong>{" "}
                 {new Date(user.date_joined).toLocaleDateString("pt-BR")}
               </p>
-              <p className=" text-gray-600">
+              <p className="text-xs text-gray-600 sm:text-lg">
                 <strong>Bio:</strong> {user.description}
               </p>
             </div>

@@ -67,11 +67,11 @@ export function CustomSelect({
         onClick={() => setIsDropdownOpen((prev) => !prev)}
         aria-label="Options"
       >
-        <DotsHorizontalIcon className="w-6 h-6 text-gray-600" />
+        <DotsHorizontalIcon className="w-4 h-4 sm:w-6 sm:h-6 text-gray-600" />
       </button>
 
       {isDropdownOpen && (
-        <div className="absolute right-0 mt-2 w-48 bg-gray-400 rounded shadow-lg p-4 z-10">
+        <div className="w-40 absolute right-0 mt-2 sm:w-48 bg-gray-400 rounded shadow-lg p-4 z-10">
           <div
             className="text-gray-100 hover:bg-fulvoushover cursor-pointer p-2 rounded flex justify-center"
             onClick={() => {

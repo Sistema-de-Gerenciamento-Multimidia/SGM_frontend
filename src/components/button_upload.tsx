@@ -48,7 +48,7 @@ const schema = z
           message: "As tags não podem estar vazias.",
         }
       ),
-    genre: z.string().optional(), // Gênero começa como opcional
+    genre: z.string().optional(), 
   })
   .superRefine((data, ctx) => {
     const isAudioOrVideo = ["video/mp4", "audio/mpeg", "audio/mp3"].includes(
@@ -63,7 +63,7 @@ const schema = z
     }
   });
 
-// Tipagem do formulário
+
 type FormValues = z.infer<typeof schema>;
 
 export function DialogDemo() {
