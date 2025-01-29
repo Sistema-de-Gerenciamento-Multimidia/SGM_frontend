@@ -59,7 +59,7 @@ export function Modal_Password({ onClose }: ModalPasswordProps) {
 
     try {
       const response = await api.patch(`/change-password/${idUsuario}/`, data); // Use backticks
-      navigate("/");
+      navigate("/login");
       toast.success("Senha alterada com sucesso.");
       console.log("Resposta do servidor:", response.data);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any

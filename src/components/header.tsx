@@ -11,7 +11,7 @@ export function Header() {
     sessionStorage.removeItem("token");
     sessionStorage.removeItem("user_id");
 
-    navigate("/");
+    navigate("/login");
   }
 
   return (

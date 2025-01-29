@@ -5,6 +5,7 @@ import { PerfilPage } from "./pages/perfilpage";
 import { PasswordRecuperation } from "./pages/password_recuperation";
 import { InicialPageRegister } from "./pages/inicialpageregister";
 import { PasswordRedefinition } from "./pages/password_redefinition";
+import { InicialPage } from "./pages/inicialpage";
 
 const isAuthenticated = () => {
   return sessionStorage.getItem("token") !== null;
@@ -18,6 +19,10 @@ const ProtectedRoute = ({ element }: { element: JSX.Element }) => {
 const router = createBrowserRouter([
   {
     path: "/",
+    element: <InicialPage />,
+  },
+  {
+    path: "/login",
     element: <InicialPageLogin />,
   },
   {

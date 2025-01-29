@@ -18,7 +18,7 @@ export function InicialPageRegister() {
 
           <div className="text-center w-full text-gray-400 text-sm mt-4">
             Já possui conta?{" "}
-            <a className="text-fulvoushover underline text-sm" href="/">
+            <a className="text-fulvoushover underline text-sm" href="/login">
               Login
             </a>
           </div>

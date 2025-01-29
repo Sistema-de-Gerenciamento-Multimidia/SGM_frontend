@@ -19,7 +19,7 @@ export function InicialPageLogin() {
 
           <div className="text-center w-full text-gray-400 text-sm mt-4">
             Não possui conta?{" "}
-            <a className="text-fulvoushover underline text-sm" href="/register">
+            <a className="text-fulvoushover underline text-sm" href="/register"> 
               Registrar-se
             </a>
           </div>

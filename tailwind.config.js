@@ -13,9 +13,9 @@ export default {
   		},
   		boxShadow: {
   			shape: '0px 8px 8px rgba(0, 0, 0, 0.1), 0px 4px 4px rgba(0, 0, 0, 0.1), 0px 2px 2px rgba(0, 0, 0, 0.1), 0px 0px 0px 1px rgba(0, 0, 0, 0.1), inset 0px 0px 0px 1px rgba(255, 255, 255, 0.03), inset 0px 1px 0px rgba(255, 255, 255, 0.03)',
-			left: '-5px 0px 10px rgba(0, 0, 0, 0.3)', 
-        	right: '5px 0px 10px rgba(0, 0, 0, 0.3)',
-			both: '5px 0px 10px rgba(0, 0, 0, 0.3), -5px 0px 10px rgba(0, 0, 0, 0.3)', 
+  			left: '-5px 0px 10px rgba(0, 0, 0, 0.3)',
+  			right: '5px 0px 10px rgba(0, 0, 0, 0.3)',
+  			both: '5px 0px 10px rgba(0, 0, 0, 0.3), -5px 0px 10px rgba(0, 0, 0, 0.3)'
   		},
   		backgroundImage: {
   			pattern: 'url(/capa_SGM2.png)'
@@ -74,6 +74,37 @@ export default {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
+  		},
+  		animation: {
+  			orbit: 'orbit calc(var(--duration)*1s) linear infinite',
+  			shine: 'shine var(--duration) infinite linear',
+  			'border-beam': 'border-beam calc(var(--duration)*1s) infinite linear'
+  		},
+  		keyframes: {
+  			orbit: {
+  				'0%': {
+  					transform: 'rotate(calc(var(--angle) * 1deg)) translateY(calc(var(--radius) * 1px)) rotate(calc(var(--angle) * -1deg))'
+  				},
+  				'100%': {
+  					transform: 'rotate(calc(var(--angle) * 1deg + 360deg)) translateY(calc(var(--radius) * 1px)) rotate(calc((var(--angle) * -1deg) - 360deg))'
+  				}
+  			},
+  			shine: {
+  				'0%': {
+  					'background-position': '0% 0%'
+  				},
+  				'50%': {
+  					'background-position': '100% 100%'
+  				},
+  				to: {
+  					'background-position': '0% 0%'
+  				}
+  			},
+  			'border-beam': {
+  				'100%': {
+  					'offset-distance': '100%'
+  				}
+  			}
   		}
   	}
   },
