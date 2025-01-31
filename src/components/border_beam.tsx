@@ -5,15 +5,17 @@ import { BorderBeam } from "./ui/border-beam";
 
 export function BorderBeamDemo() {
   return (
-    <div className="relative flex h-[600px] w-[500px] flex-col items-center justify-start overflow-hidden rounded-lg border-2 border-gray-700 bg- shadow-xl">
+    <div className="relative flex h-[500px] w-[350px] sm:h-[600px] sm:w-[500px] flex-col items-center justify-start overflow-hidden rounded-lg border-2 border-gray-700 bg- shadow-xl">
       {/* Texto dentro do card */}
       <div className="flex flex-col justify-center items-center space-y-4">
         <span className="mt-4 text-fulvouscolor font-bold text-5xl">
           <TextAnimateDemo text="Contentify" />
         </span>
 
-        <p className="text-sm text-center italic text-gray-500 opacity-75 px-4">
-          <TextAnimateDemo text="Bem-vindo ao Contentify: o seu sistema de upload de arquivos para armazenar e gerenciar seu conteúdo com facilidade!" />
+        <p className="text-sm text-center italic text-gray-500 opacity-75 sm:px-6 px-7 whitespace-pre-line">
+          <TextAnimateDemo
+            text="Bem-vindo ao Contentify:O seu sistema de upload de arquivos para armazenar e gerenciar seu conteúdo com facilidade!"
+          />
         </p>
 
         <div>

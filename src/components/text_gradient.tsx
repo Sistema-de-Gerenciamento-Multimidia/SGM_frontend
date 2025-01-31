@@ -6,7 +6,7 @@ interface TextAnimateProps {
 
 export function TextAnimateDemo({ text }: TextAnimateProps) {
   return (
-    <TextAnimate animation="blurInUp" by="character">
+    <TextAnimate animation="blurInUp" by="character" className="whitespace-pre-line">
       {text}
     </TextAnimate>
   );
