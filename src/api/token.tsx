@@ -6,7 +6,7 @@ const getToken = () => {
 };
 
 const api = axios.create({
-  baseURL: 'https://sgm-backend-test.onrender.com/api/v1',
+  baseURL: import.meta.env.VITE_BASE_URL,
 });
 
 api.interceptors.request.use(
